@@ -101,7 +101,6 @@ config = {
 }
 model = MoE(args.model_name_or_path, config)
 
-
 custom_kwargs = {}
 if "switch" in args.model_name_or_path.lower():
     custom_kwargs = {"decoder_start_token_id": 0}

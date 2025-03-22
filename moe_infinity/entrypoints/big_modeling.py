@@ -139,7 +139,6 @@ class MoE:
             print(
                 "[WARNING] FlashAttention is not available in the current environment. Using default attention."
             )
-
         with self.engine.init(cls=model_cls, ar_config=config):
             self.model = model_cls.from_pretrained(
                 model_name_or_path,
