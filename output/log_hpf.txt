@@ -1,0 +1,17 @@
+CUDA extension not installed.
+CUDA extension not installed.
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+Using /home/user/.cache/torch_extensions/py39_cu126 as PyTorch extensions root...
+Emitting ninja build file /home/user/.cache/torch_extensions/py39_cu126/prefetch/build.ninja...
+Building extension module prefetch...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+Do not detect pre-installed ops, use JIT mode
+[WARNING] FlashAttention is not available in the current environment. Using default attention.
+ninja: no work to do.
+Loading extension module prefetch...
+Time to load prefetch op: 6.957914113998413 seconds
+Loading model from offload_path ...
+DeepseekV2ForCausalLM has generative capabilities, as `prepare_inputs_for_generation` is explicitly overwritten. However, it doesn't directly inherit from `GenerationMixin`. From 👉v4.50👈 onwards, `PreTrainedModel` will NOT inherit from `GenerationMixin`, and this model will lose the ability to call `generate` and other related functions.
+  - If you're using `trust_remote_code=True`, you can get rid of this warning by loading the model with an auto class. See https://huggingface.co/docs/transformers/en/model_doc/auto#auto-classes
+  - If you are the owner of the model architecture code, please modify your model class such that it inherits from `GenerationMixin` (after `PreTrainedModel`, otherwise you'll get an exception).
+  - If you are not the owner of the model architecture class, please contact the model code owner to update it.

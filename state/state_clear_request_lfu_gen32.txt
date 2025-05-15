@@ -1,0 +1,480 @@
+
+[Cache Statistics-1]
+ Dispatches ALL: 1640 Cache Hits: 0 Hit Rate: 0.00%
+
+[Cache Statistics-2]
+ Dispatches ALL: 1796 Cache Hits: 69 Hit Rate: 3.84%
+
+[Cache Statistics-3]
+ Dispatches ALL: 1952 Cache Hits: 212 Hit Rate: 10.86%
+
+[Cache Statistics-4]
+ Dispatches ALL: 2108 Cache Hits: 310 Hit Rate: 14.71%
+
+[Cache Statistics-5]
+ Dispatches ALL: 2264 Cache Hits: 433 Hit Rate: 19.13%
+
+[Cache Statistics-6]
+ Dispatches ALL: 2420 Cache Hits: 565 Hit Rate: 23.35%
+
+[Cache Statistics-7]
+ Dispatches ALL: 2576 Cache Hits: 638 Hit Rate: 24.77%
+
+[Cache Statistics-8]
+ Dispatches ALL: 2732 Cache Hits: 711 Hit Rate: 26.02%
+
+[Cache Statistics-9]
+ Dispatches ALL: 2888 Cache Hits: 794 Hit Rate: 27.49%
+
+[Cache Statistics-10]
+ Dispatches ALL: 3044 Cache Hits: 874 Hit Rate: 28.71%
+
+[Cache Statistics-11]
+ Dispatches ALL: 3200 Cache Hits: 994 Hit Rate: 31.06%
+
+[Cache Statistics-12]
+ Dispatches ALL: 3356 Cache Hits: 1104 Hit Rate: 32.90%
+
+[Cache Statistics-13]
+ Dispatches ALL: 3512 Cache Hits: 1180 Hit Rate: 33.60%
+
+[Cache Statistics-14]
+ Dispatches ALL: 3668 Cache Hits: 1284 Hit Rate: 35.01%
+
+[Cache Statistics-15]
+ Dispatches ALL: 3824 Cache Hits: 1389 Hit Rate: 36.32%
+
+[Cache Statistics-16]
+ Dispatches ALL: 3980 Cache Hits: 1504 Hit Rate: 37.79%
+
+[Cache Statistics-17]
+ Dispatches ALL: 4136 Cache Hits: 1628 Hit Rate: 39.36%
+
+[Cache Statistics-18]
+ Dispatches ALL: 4292 Cache Hits: 1726 Hit Rate: 40.21%
+
+[Cache Statistics-19]
+ Dispatches ALL: 4448 Cache Hits: 1806 Hit Rate: 40.60%
+
+[Cache Statistics-20]
+ Dispatches ALL: 4604 Cache Hits: 1934 Hit Rate: 42.01%
+
+[Cache Statistics-21]
+ Dispatches ALL: 4760 Cache Hits: 2070 Hit Rate: 43.49%
+
+[Cache Statistics-22]
+ Dispatches ALL: 4916 Cache Hits: 2184 Hit Rate: 44.43%
+
+[Cache Statistics-23]
+ Dispatches ALL: 5072 Cache Hits: 2328 Hit Rate: 45.90%
+
+[Cache Statistics-24]
+ Dispatches ALL: 5228 Cache Hits: 2454 Hit Rate: 46.94%
+
+[Cache Statistics-25]
+ Dispatches ALL: 5384 Cache Hits: 2522 Hit Rate: 46.84%
+
+[Cache Statistics-26]
+ Dispatches ALL: 5540 Cache Hits: 2613 Hit Rate: 47.17%
+
+[Cache Statistics-27]
+ Dispatches ALL: 5696 Cache Hits: 2730 Hit Rate: 47.93%
+
+[Cache Statistics-28]
+ Dispatches ALL: 5852 Cache Hits: 2836 Hit Rate: 48.46%
+
+[Cache Statistics-29]
+ Dispatches ALL: 6008 Cache Hits: 2945 Hit Rate: 49.02%
+
+[Cache Statistics-30]
+ Dispatches ALL: 6164 Cache Hits: 3079 Hit Rate: 49.95%
+
+[Cache Statistics-31]
+ Dispatches ALL: 6320 Cache Hits: 3216 Hit Rate: 50.89%
+
+[Cache Statistics-32]
+ Dispatches ALL: 6476 Cache Hits: 3299 Hit Rate: 50.94%
+
+[Cache Statistics-33]
+ Dispatches ALL: 1653 Cache Hits: 189 Hit Rate: 11.43%
+
+[Cache Statistics-34]
+ Dispatches ALL: 1809 Cache Hits: 260 Hit Rate: 14.37%
+
+[Cache Statistics-35]
+ Dispatches ALL: 1965 Cache Hits: 398 Hit Rate: 20.25%
+
+[Cache Statistics-36]
+ Dispatches ALL: 2121 Cache Hits: 511 Hit Rate: 24.09%
+
+[Cache Statistics-37]
+ Dispatches ALL: 2277 Cache Hits: 568 Hit Rate: 24.95%
+
+[Cache Statistics-38]
+ Dispatches ALL: 2433 Cache Hits: 689 Hit Rate: 28.32%
+
+[Cache Statistics-39]
+ Dispatches ALL: 2589 Cache Hits: 782 Hit Rate: 30.20%
+
+[Cache Statistics-40]
+ Dispatches ALL: 2745 Cache Hits: 867 Hit Rate: 31.58%
+
+[Cache Statistics-41]
+ Dispatches ALL: 2901 Cache Hits: 968 Hit Rate: 33.37%
+
+[Cache Statistics-42]
+ Dispatches ALL: 3057 Cache Hits: 1088 Hit Rate: 35.59%
+
+[Cache Statistics-43]
+ Dispatches ALL: 3213 Cache Hits: 1203 Hit Rate: 37.44%
+
+[Cache Statistics-44]
+ Dispatches ALL: 3369 Cache Hits: 1300 Hit Rate: 38.59%
+
+[Cache Statistics-45]
+ Dispatches ALL: 3525 Cache Hits: 1431 Hit Rate: 40.60%
+
+[Cache Statistics-46]
+ Dispatches ALL: 3681 Cache Hits: 1544 Hit Rate: 41.95%
+
+[Cache Statistics-47]
+ Dispatches ALL: 3837 Cache Hits: 1669 Hit Rate: 43.50%
+
+[Cache Statistics-48]
+ Dispatches ALL: 3993 Cache Hits: 1806 Hit Rate: 45.23%
+
+[Cache Statistics-49]
+ Dispatches ALL: 4149 Cache Hits: 1908 Hit Rate: 45.99%
+
+[Cache Statistics-50]
+ Dispatches ALL: 4305 Cache Hits: 2014 Hit Rate: 46.78%
+
+[Cache Statistics-51]
+ Dispatches ALL: 4461 Cache Hits: 2110 Hit Rate: 47.30%
+
+[Cache Statistics-52]
+ Dispatches ALL: 4617 Cache Hits: 2197 Hit Rate: 47.59%
+
+[Cache Statistics-53]
+ Dispatches ALL: 4773 Cache Hits: 2281 Hit Rate: 47.79%
+
+[Cache Statistics-54]
+ Dispatches ALL: 4929 Cache Hits: 2356 Hit Rate: 47.80%
+
+[Cache Statistics-55]
+ Dispatches ALL: 5085 Cache Hits: 2471 Hit Rate: 48.59%
+
+[Cache Statistics-56]
+ Dispatches ALL: 5241 Cache Hits: 2574 Hit Rate: 49.11%
+
+[Cache Statistics-57]
+ Dispatches ALL: 5397 Cache Hits: 2657 Hit Rate: 49.23%
+
+[Cache Statistics-58]
+ Dispatches ALL: 5553 Cache Hits: 2730 Hit Rate: 49.16%
+
+[Cache Statistics-59]
+ Dispatches ALL: 5709 Cache Hits: 2815 Hit Rate: 49.31%
+
+[Cache Statistics-60]
+ Dispatches ALL: 5865 Cache Hits: 2903 Hit Rate: 49.50%
+
+[Cache Statistics-61]
+ Dispatches ALL: 6021 Cache Hits: 3001 Hit Rate: 49.84%
+
+[Cache Statistics-62]
+ Dispatches ALL: 6177 Cache Hits: 3071 Hit Rate: 49.72%
+
+[Cache Statistics-63]
+ Dispatches ALL: 6333 Cache Hits: 3150 Hit Rate: 49.74%
+
+[Cache Statistics-64]
+ Dispatches ALL: 6489 Cache Hits: 3227 Hit Rate: 49.73%
+
+[Cache Statistics-65]
+ Dispatches ALL: 1626 Cache Hits: 160 Hit Rate: 9.84%
+
+[Cache Statistics-66]
+ Dispatches ALL: 1782 Cache Hits: 233 Hit Rate: 13.08%
+
+[Cache Statistics-67]
+ Dispatches ALL: 1938 Cache Hits: 366 Hit Rate: 18.89%
+
+[Cache Statistics-68]
+ Dispatches ALL: 2094 Cache Hits: 459 Hit Rate: 21.92%
+
+[Cache Statistics-69]
+ Dispatches ALL: 2250 Cache Hits: 580 Hit Rate: 25.78%
+
+[Cache Statistics-70]
+ Dispatches ALL: 2406 Cache Hits: 713 Hit Rate: 29.63%
+
+[Cache Statistics-71]
+ Dispatches ALL: 2562 Cache Hits: 775 Hit Rate: 30.25%
+
+[Cache Statistics-72]
+ Dispatches ALL: 2718 Cache Hits: 850 Hit Rate: 31.27%
+
+[Cache Statistics-73]
+ Dispatches ALL: 2874 Cache Hits: 933 Hit Rate: 32.46%
+
+[Cache Statistics-74]
+ Dispatches ALL: 3030 Cache Hits: 1057 Hit Rate: 34.88%
+
+[Cache Statistics-75]
+ Dispatches ALL: 3186 Cache Hits: 1168 Hit Rate: 36.66%
+
+[Cache Statistics-76]
+ Dispatches ALL: 3342 Cache Hits: 1253 Hit Rate: 37.49%
+
+[Cache Statistics-77]
+ Dispatches ALL: 3498 Cache Hits: 1337 Hit Rate: 38.22%
+
+[Cache Statistics-78]
+ Dispatches ALL: 3654 Cache Hits: 1417 Hit Rate: 38.78%
+
+[Cache Statistics-79]
+ Dispatches ALL: 3810 Cache Hits: 1514 Hit Rate: 39.74%
+
+[Cache Statistics-80]
+ Dispatches ALL: 3966 Cache Hits: 1599 Hit Rate: 40.32%
+
+[Cache Statistics-81]
+ Dispatches ALL: 4122 Cache Hits: 1706 Hit Rate: 41.39%
+
+[Cache Statistics-82]
+ Dispatches ALL: 4278 Cache Hits: 1791 Hit Rate: 41.87%
+
+[Cache Statistics-83]
+ Dispatches ALL: 4434 Cache Hits: 1903 Hit Rate: 42.92%
+
+[Cache Statistics-84]
+ Dispatches ALL: 4590 Cache Hits: 2000 Hit Rate: 43.57%
+
+[Cache Statistics-85]
+ Dispatches ALL: 4746 Cache Hits: 2101 Hit Rate: 44.27%
+
+[Cache Statistics-86]
+ Dispatches ALL: 4902 Cache Hits: 2182 Hit Rate: 44.51%
+
+[Cache Statistics-87]
+ Dispatches ALL: 5058 Cache Hits: 2255 Hit Rate: 44.58%
+
+[Cache Statistics-88]
+ Dispatches ALL: 5214 Cache Hits: 2358 Hit Rate: 45.22%
+
+[Cache Statistics-89]
+ Dispatches ALL: 5370 Cache Hits: 2450 Hit Rate: 45.62%
+
+[Cache Statistics-90]
+ Dispatches ALL: 5526 Cache Hits: 2560 Hit Rate: 46.33%
+
+[Cache Statistics-91]
+ Dispatches ALL: 5682 Cache Hits: 2689 Hit Rate: 47.32%
+
+[Cache Statistics-92]
+ Dispatches ALL: 5838 Cache Hits: 2802 Hit Rate: 48.00%
+
+[Cache Statistics-93]
+ Dispatches ALL: 5994 Cache Hits: 2921 Hit Rate: 48.73%
+
+[Cache Statistics-94]
+ Dispatches ALL: 6150 Cache Hits: 3036 Hit Rate: 49.37%
+
+[Cache Statistics-95]
+ Dispatches ALL: 6306 Cache Hits: 3140 Hit Rate: 49.79%
+
+[Cache Statistics-96]
+ Dispatches ALL: 6462 Cache Hits: 3219 Hit Rate: 49.81%
+
+[Cache Statistics-97]
+ Dispatches ALL: 1591 Cache Hits: 188 Hit Rate: 11.82%
+
+[Cache Statistics-98]
+ Dispatches ALL: 1747 Cache Hits: 259 Hit Rate: 14.83%
+
+[Cache Statistics-99]
+ Dispatches ALL: 1903 Cache Hits: 388 Hit Rate: 20.39%
+
+[Cache Statistics-100]
+ Dispatches ALL: 2059 Cache Hits: 488 Hit Rate: 23.70%
+
+[Cache Statistics-101]
+ Dispatches ALL: 2215 Cache Hits: 607 Hit Rate: 27.40%
+
+[Cache Statistics-102]
+ Dispatches ALL: 2371 Cache Hits: 733 Hit Rate: 30.92%
+
+[Cache Statistics-103]
+ Dispatches ALL: 2527 Cache Hits: 806 Hit Rate: 31.90%
+
+[Cache Statistics-104]
+ Dispatches ALL: 2683 Cache Hits: 853 Hit Rate: 31.79%
+
+[Cache Statistics-105]
+ Dispatches ALL: 2839 Cache Hits: 936 Hit Rate: 32.97%
+
+[Cache Statistics-106]
+ Dispatches ALL: 2995 Cache Hits: 1053 Hit Rate: 35.16%
+
+[Cache Statistics-107]
+ Dispatches ALL: 3151 Cache Hits: 1176 Hit Rate: 37.32%
+
+[Cache Statistics-108]
+ Dispatches ALL: 3307 Cache Hits: 1259 Hit Rate: 38.07%
+
+[Cache Statistics-109]
+ Dispatches ALL: 3463 Cache Hits: 1370 Hit Rate: 39.56%
+
+[Cache Statistics-110]
+ Dispatches ALL: 3619 Cache Hits: 1454 Hit Rate: 40.18%
+
+[Cache Statistics-111]
+ Dispatches ALL: 3775 Cache Hits: 1512 Hit Rate: 40.05%
+
+[Cache Statistics-112]
+ Dispatches ALL: 3931 Cache Hits: 1587 Hit Rate: 40.37%
+
+[Cache Statistics-113]
+ Dispatches ALL: 4087 Cache Hits: 1674 Hit Rate: 40.96%
+
+[Cache Statistics-114]
+ Dispatches ALL: 4243 Cache Hits: 1755 Hit Rate: 41.36%
+
+[Cache Statistics-115]
+ Dispatches ALL: 4399 Cache Hits: 1829 Hit Rate: 41.58%
+
+[Cache Statistics-116]
+ Dispatches ALL: 4555 Cache Hits: 1913 Hit Rate: 42.00%
+
+[Cache Statistics-117]
+ Dispatches ALL: 4711 Cache Hits: 2041 Hit Rate: 43.32%
+
+[Cache Statistics-118]
+ Dispatches ALL: 4867 Cache Hits: 2182 Hit Rate: 44.83%
+
+[Cache Statistics-119]
+ Dispatches ALL: 5023 Cache Hits: 2301 Hit Rate: 45.81%
+
+[Cache Statistics-120]
+ Dispatches ALL: 5179 Cache Hits: 2409 Hit Rate: 46.51%
+
+[Cache Statistics-121]
+ Dispatches ALL: 5335 Cache Hits: 2544 Hit Rate: 47.69%
+
+[Cache Statistics-122]
+ Dispatches ALL: 5491 Cache Hits: 2662 Hit Rate: 48.48%
+
+[Cache Statistics-123]
+ Dispatches ALL: 5647 Cache Hits: 2773 Hit Rate: 49.11%
+
+[Cache Statistics-124]
+ Dispatches ALL: 5803 Cache Hits: 2882 Hit Rate: 49.66%
+
+[Cache Statistics-125]
+ Dispatches ALL: 5959 Cache Hits: 2961 Hit Rate: 49.69%
+
+[Cache Statistics-126]
+ Dispatches ALL: 6115 Cache Hits: 3049 Hit Rate: 49.86%
+
+[Cache Statistics-127]
+ Dispatches ALL: 6271 Cache Hits: 3155 Hit Rate: 50.31%
+
+[Cache Statistics-128]
+ Dispatches ALL: 6427 Cache Hits: 3255 Hit Rate: 50.65%
+
+[Cache Statistics-129]
+ Dispatches ALL: 1634 Cache Hits: 185 Hit Rate: 11.32%
+
+[Cache Statistics-130]
+ Dispatches ALL: 1790 Cache Hits: 254 Hit Rate: 14.19%
+
+[Cache Statistics-131]
+ Dispatches ALL: 1946 Cache Hits: 387 Hit Rate: 19.89%
+
+[Cache Statistics-132]
+ Dispatches ALL: 2102 Cache Hits: 482 Hit Rate: 22.93%
+
+[Cache Statistics-133]
+ Dispatches ALL: 2258 Cache Hits: 597 Hit Rate: 26.44%
+
+[Cache Statistics-134]
+ Dispatches ALL: 2414 Cache Hits: 676 Hit Rate: 28.00%
+
+[Cache Statistics-135]
+ Dispatches ALL: 2570 Cache Hits: 752 Hit Rate: 29.26%
+
+[Cache Statistics-136]
+ Dispatches ALL: 2726 Cache Hits: 830 Hit Rate: 30.45%
+
+[Cache Statistics-137]
+ Dispatches ALL: 2882 Cache Hits: 948 Hit Rate: 32.89%
+
+[Cache Statistics-138]
+ Dispatches ALL: 3038 Cache Hits: 1067 Hit Rate: 35.12%
+
+[Cache Statistics-139]
+ Dispatches ALL: 3194 Cache Hits: 1192 Hit Rate: 37.32%
+
+[Cache Statistics-140]
+ Dispatches ALL: 3350 Cache Hits: 1312 Hit Rate: 39.16%
+
+[Cache Statistics-141]
+ Dispatches ALL: 3506 Cache Hits: 1456 Hit Rate: 41.53%
+
+[Cache Statistics-142]
+ Dispatches ALL: 3662 Cache Hits: 1570 Hit Rate: 42.87%
+
+[Cache Statistics-143]
+ Dispatches ALL: 3818 Cache Hits: 1715 Hit Rate: 44.92%
+
+[Cache Statistics-144]
+ Dispatches ALL: 3974 Cache Hits: 1838 Hit Rate: 46.25%
+
+[Cache Statistics-145]
+ Dispatches ALL: 4130 Cache Hits: 1936 Hit Rate: 46.88%
+
+[Cache Statistics-146]
+ Dispatches ALL: 4286 Cache Hits: 2017 Hit Rate: 47.06%
+
+[Cache Statistics-147]
+ Dispatches ALL: 4442 Cache Hits: 2099 Hit Rate: 47.25%
+
+[Cache Statistics-148]
+ Dispatches ALL: 4598 Cache Hits: 2188 Hit Rate: 47.59%
+
+[Cache Statistics-149]
+ Dispatches ALL: 4754 Cache Hits: 2293 Hit Rate: 48.23%
+
+[Cache Statistics-150]
+ Dispatches ALL: 4910 Cache Hits: 2387 Hit Rate: 48.62%
+
+[Cache Statistics-151]
+ Dispatches ALL: 5066 Cache Hits: 2512 Hit Rate: 49.59%
+
+[Cache Statistics-152]
+ Dispatches ALL: 5222 Cache Hits: 2594 Hit Rate: 49.67%
+
+[Cache Statistics-153]
+ Dispatches ALL: 5378 Cache Hits: 2662 Hit Rate: 49.50%
+
+[Cache Statistics-154]
+ Dispatches ALL: 5534 Cache Hits: 2748 Hit Rate: 49.66%
+
+[Cache Statistics-155]
+ Dispatches ALL: 5690 Cache Hits: 2850 Hit Rate: 50.09%
+
+[Cache Statistics-156]
+ Dispatches ALL: 5846 Cache Hits: 2928 Hit Rate: 50.09%
+
+[Cache Statistics-157]
+ Dispatches ALL: 6002 Cache Hits: 3021 Hit Rate: 50.33%
+
+[Cache Statistics-158]
+ Dispatches ALL: 6158 Cache Hits: 3135 Hit Rate: 50.91%
+
+[Cache Statistics-159]
+ Dispatches ALL: 6314 Cache Hits: 3236 Hit Rate: 51.25%
+
+[Cache Statistics-160]
+ Dispatches ALL: 6470 Cache Hits: 3314 Hit Rate: 51.22%

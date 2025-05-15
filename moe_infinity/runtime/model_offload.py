@@ -106,9 +106,7 @@ class OffloadEngine(object):
         elif isinstance(ar_config, ArcherConfig):
             _archer_config = ar_config
         else:
-            raise ValueError(
-                "ArcherConfig is not provided. Please provide a path to a config file or a dict."
-            )
+            raise ValueError("ArcherConfig is not provided. Please provide a path to a config file or a dict.")
 
         # TODO: get trace from trace_path
 
@@ -842,9 +840,7 @@ class OffloadEngine(object):
                     #     expert_tensors,
                     # )
 
-                    self.expert_dispatcher.register_expert(
-                        expert_layer_id, expert_idx, expert_tensors
-                    )
+                    self.expert_dispatcher.register_expert(expert_layer_id, expert_idx, expert_tensors)
                 expert_layer_id += 1
             else:
                 input_device_index = self.archer_engine.get_node_default_device(

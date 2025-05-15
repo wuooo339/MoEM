@@ -17,7 +17,7 @@ from moe_infinity.models import (
 from moe_infinity.models.modeling_arctic import ArcticConfig
 from moe_infinity.runtime import OffloadEngine
 from moe_infinity.utils import ArcherConfig, get_checkpoint_paths
-
+from moe_infinity.memory.global_prefetch import clear_prefetched_experts 
 warnings.filterwarnings("ignore")
 
 
@@ -181,18 +181,22 @@ class MoE:
                 prompt.
             **kwargs: Additional arguments for the generation method. Check the HuggingFace documentation of the model's
                 `generate` method for the supported arguments.
-
+        
         Returns:
             `torch.LongTensor` of shape `(batch_size, sequence_length)`:
                 The generated sequences. Sequences shorter than `min_length` are padded with `pad_token_id`.
         """
-
         self._configure_hook(input_ids)
 
         self.model.eval()
+        # 清除预取专家记录
+        clear_prefetched_experts()
+        # 每次重新开始之前要清空计时器(可选)
+        self.engine.expert_dispatcher.clear_expert_cache_counts()
         with torch.no_grad():
             return self.model.generate(input_ids, **kwargs)
-        self.engine.expert_dispatcher.clear_expert_cache_counts()
+        self.engine.expert_dispatcher.clear_expert_cache_priority()
+        
 
     def forward(self, input_ids: torch.LongTensor, *args, **kwargs) -> Any:
         """

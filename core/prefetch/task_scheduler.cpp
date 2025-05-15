@@ -52,7 +52,7 @@ void ArcherTaskPool::FetchExec(const std::uint64_t& request_id,
   task->request_id = request_id;
 
   DLOG_TRACE("FetchExec: {}", task->DebugString());
-
+  // std::cout << "\033[1;36m[TRACE] FetchExec: " << task->DebugString() << "\033[0m" << std::endl;
   {
     std::lock_guard<std::mutex> lock(unified_mutex_);
     for (std::size_t i = 1; i < NUM_PRIORITY; ++i) {
@@ -81,7 +81,7 @@ void ArcherTaskPool::FetchExec(const std::uint64_t& request_id,
 
 void ArcherTaskPool::EnqueueTask(const TaskPtr& task) {
   DLOG_TRACE("EnqueueTask: {}", task->DebugString());
-
+  std::cout << "EnqueueTask: " << task->DebugString();
   {
     std::lock_guard<std::mutex> lock(unified_mutex_);
     for (std::size_t i = 1; i < NUM_PRIORITY; ++i) {
@@ -93,8 +93,7 @@ void ArcherTaskPool::EnqueueTask(const TaskPtr& task) {
             bool is_outdate_layers =
                 task->remove_layer && ((t->node->corr_id & 0xffffffff) <
                                        (task->node->corr_id & 0xffffffff));
-            bool need_remove =
-                (is_same_node && is_lower_priority) || is_outdate_layers;
+            bool need_remove = (is_same_node && is_lower_priority) || is_outdate_layers;
             if (need_remove) t->node->mutex.unlock();
             return need_remove;
           });
@@ -115,6 +114,7 @@ void ArcherTaskPool::EnqueueTask(const TaskPtr& task) {
   }
 
   DLOG_TRACE("EnqueueTask: finish {}", task->DebugString());
+  std::cout << " ### EnqueueTask End"<< std::endl;
 }
 
 void ArcherTaskPool::StartExec(const std::uint64_t& request_id,
@@ -126,7 +126,7 @@ void ArcherTaskPool::StartExec(const std::uint64_t& request_id,
   task->src_device = node->device;
   task->dst_device = node->default_device;
   task->request_id = request_id;
-
+  std::cout << "StartExec: " << task->DebugString();
   DLOG_TRACE("StartExec: {}", task->DebugString());
 
   node->visit_count += 1;
@@ -209,6 +209,7 @@ void ArcherTaskPool::StartExec(const std::uint64_t& request_id,
     std::lock_guard<std::mutex> lock(unified_mutex_);
     unified_queue_[task->priority].push_back(task);
   }
+  std::cout << " ### StartExec End"<< std::endl;
 }
 
 void ArcherTaskPool::StopExec(const std::uint64_t& request_id,
@@ -220,16 +221,16 @@ void ArcherTaskPool::StopExec(const std::uint64_t& request_id,
   task->src_device = node->device;
   task->dst_device = node->default_host;
   task->request_id = request_id;
-
+  std::cout << "StopExec: " << task->DebugString();
   DLOG_TRACE("StopExec: {}", task->DebugString());
-
+  
   node->state = 0;
   node->cv.notify_all();
   {
     std::lock_guard<std::mutex> lock(exec_mutex_);
     exec_queue_.erase(node->id);
   }
-
+  std::cout << " ### StopExec End"<< std::endl;
   return;
 }
 
@@ -527,7 +528,10 @@ void ArcherTaskPool::SetNodeDevice(const TaskPtr& task) {
   if (node->device.type() == task->dst_device.type()) {
     DLOG_TRACE("SetNodeDevice: task: {}, skip same device",
                task->DebugString());
-    if (!task->on_demand) node->mutex.unlock();
+    if (!task->on_demand) {
+      std::cout << "unlock node";
+      node->mutex.unlock();
+    }
     return;
   }
 
@@ -551,8 +555,9 @@ void ArcherTaskPool::SetNodeDevice(const TaskPtr& task) {
     node->io_state =
         static_cast<NodeState>(node->io_state | NODE_STATE_PREFETCHED);
     node->last_prefetch_time = MCIROSECONDS_SINCE_EPOCH;
-    DLOG_TRACE("Prefetch Node: task: {}, prefetch_cnt: {}", task->DebugString(),
-               node_body->prefetch_cnt);
+    DLOG_TRACE("Prefetch Node: task: {}, prefetch_cnt: {}", task->DebugString(), node_body->prefetch_cnt);
+    std::cout << "Prefetch Node: task: " << task->DebugString() << ", prefetch_cnt: " << node_body->prefetch_cnt << std::endl;
+    node->mutex.unlock();
   }
 }
 

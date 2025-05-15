@@ -15,7 +15,6 @@ def _call_expert_prefetcher(method, *args, **kwargs):
     func = getattr(_expert_prefetcher, method)
     return func(*args, **kwargs)
 
-
 class DistributedExpertPrefetcher(object):
     cache_file_rd = None
 

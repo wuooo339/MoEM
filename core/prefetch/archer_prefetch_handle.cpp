@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // EfficientMoE Team
-
 #include "archer_prefetch_handle.h"
 #include <cuda_runtime_api.h>
 #include <torch/extension.h>
@@ -214,6 +213,7 @@ void ArcherPrefetchHandle::EnqueuePrefetch(const uint32_t tensor_id,
   task->src_device = node->device;
   // task->dst_device = CUDA_DEVICE(gpu_id); // use default device for now
   task->dst_device = node->default_device;
+  std::cout << "EnqueuePrefetch: "<< tensor_id << std::endl;
   kTaskPool->EnqueueTask(task);
 }
 

@@ -3,8 +3,12 @@ from typing import Dict, Optional, Tuple
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-
+GLOBAL_CONFIG = {
+    "prefill": 1,
+    "decode": 0,
+}
+DEBUG = False
+from moe_infinity.memory.global_prefetch import clear_prefetched_experts
 class DeepseekMoEBlock(nn.Module):
     """
     A mixed expert module containing shared experts.
@@ -47,11 +51,9 @@ class DeepseekMoEBlock(nn.Module):
         self.archer_tracer = None
         self.archer_engine = None
         self.expert_tensor_ids: Dict[int, int] = None
-
     def forward(self, hidden_states):
         identity = hidden_states
         orig_shape = hidden_states.shape
-
         gate_output = self.gate(hidden_states)
         if len(gate_output) == 3:
             topk_idx, topk_weight, aux_loss = gate_output
@@ -61,8 +63,8 @@ class DeepseekMoEBlock(nn.Module):
         # topk_idx, topk_weight, aux_loss = self.gate(hidden_states)
         hidden_states = hidden_states.view(-1, hidden_states.shape[-1])
 
-        # print("topk_idx", topk_idx.shape)
-        # print("topk_weight", topk_weight.shape)
+        # print("topk_idx", topk_idx)
+        # print("topk_weight", topk_weight)
         # print(self.config.n_routed_experts, self.config.num_experts_per_tok)
 
         # cnts = topk_idx.new_zeros((topk_idx.shape[0], len(self.experts)))
@@ -94,24 +96,25 @@ class DeepseekMoEBlock(nn.Module):
 
         # overlap current layer with unique expert list
         # unique_expert_list = torch.unique(topk_idx).tolist()
-        # self.expert_prefetcher.fetch_experts_lock_cache(
-        #     self.layer_id, unique_expert_list
-        # )
-
+        # self.expert_prefetcher.fetch_experts_lock_cache(self.layer_id, unique_expert_list)
         # self.expert_prefetcher.prefetch_experts_list(self.layer_id, unique_expert_list)
-
-        # expert_index = topk_idx.reshape(
-        #     batch_size, sequence_length, self.config.num_experts_per_tok
-        # )
-        # for i in range(batch_size):
-        #     seq_id = self.seq_id_list[i]
-        #     expert_matrix = self.expert_predictor.predict(
-        #         seq_id, expert_index[i], self.layer_id
-        #     )
-        #     self.expert_prefetcher.prefetch_experts(
-        #         self.layer_id, expert_matrix
-        #     )
-
+        # ------------------实现专家预取部分Begin-----------------
+        expert_index = topk_idx.reshape(batch_size, sequence_length, self.config.num_experts_per_tok)#此处暂时不用
+        print(f"prefill = {GLOBAL_CONFIG} ,layer = {self.layer_id},expert_id = {expert_index}")
+        if GLOBAL_CONFIG["prefill"] == 1 and self.layer_id > 25:
+            GLOBAL_CONFIG["prefill"] = 0
+            GLOBAL_CONFIG["decode"] = 1
+            print("\033[94mGlobal dict updated\033[0m") 
+        print(f"\033[1;32mPre-execute: DeepSeek MOE Block in Layer{self.layer_id}\033[0m")
+        if(GLOBAL_CONFIG["decode"] == 1):
+            expert_index = topk_idx
+            for i in range(batch_size):
+                seq_id = self.seq_id_list[i]
+                expert_matrix = self.expert_predictor.predict(seq_id, expert_index[i], self.layer_id)#获取本层之后点信息
+                if(self.layer_id % 6==0):#增加输出间隔，防止冲突
+                    print(f"Begin prefetch{self.layer_id} topk=",topk_idx)
+                    self.expert_prefetcher.prefetch_experts_test(self.layer_id+3, expert_matrix)
+        # ------------------实现专家预取部分END-----------------
         final_hidden_states = torch.zeros(
             (batch_size * sequence_length, hidden_dim),
             dtype=hidden_states.dtype,
@@ -126,14 +129,14 @@ class DeepseekMoEBlock(nn.Module):
                 output.to(routing_weights_mask.device)
                 * routing_weights_mask[token_indices, idx][:, None]
             )
-
         final_hidden_states = final_hidden_states.view(
             batch_size, sequence_length, hidden_dim
         )
         if self.config.n_shared_experts is not None:
-            final_hidden_states = final_hidden_states + self.shared_experts(
-                identity
-            )
+            final_hidden_states = final_hidden_states + self.shared_experts(identity)
+        # if DEBUG:
+        print(f"\033[1;94mExecute MOE Block End in Layer {self.layer_id}\033[0m")
+        clear_prefetched_experts(self.layer_id)
         return final_hidden_states
 
         # outputs = []

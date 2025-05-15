@@ -1,0 +1,45 @@
+CUDA extension not installed.
+CUDA extension not installed.
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+Using /home/user/.cache/torch_extensions/py39_cu126 as PyTorch extensions root...
+Emitting ninja build file /home/user/.cache/torch_extensions/py39_cu126/prefetch/build.ninja...
+Building extension module prefetch...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+Do not detect pre-installed ops, use JIT mode
+CUDA_VISIBLE_DEVICES: 1
+Available devices: []
+[WARNING] FlashAttention is not available in the current environment. Using default attention.
+[1/2] c++ -MMD -MF model_topology.o.d -DTORCH_EXTENSION_NAME=prefetch -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/home/user/offload/MoE-Modified/moe_infinity/ops/core -isystem /home/user/miniconda3/envs/moe-infinity/lib/python3.9/site-packages/torch/include -isystem /home/user/miniconda3/envs/moe-infinity/lib/python3.9/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/miniconda3/envs/moe-infinity/include/python3.9 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -g -Wall -O3 -std=c++17 -shared -fPIC -Wno-reorder -march=native -fopenmp -D__AVX256__ -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lpthread -c /home/user/offload/MoE-Modified/moe_infinity/ops/core/model/model_topology.cpp -o model_topology.o 
+In file included from /home/user/offload/MoE-Modified/moe_infinity/ops/core/utils/tqdm.h:37,
+                 from /home/user/offload/MoE-Modified/moe_infinity/ops/core/model/model_topology.cpp:24:
+/home/user/offload/MoE-Modified/moe_infinity/ops/core/utils/tqdm_utils.h:43:19: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+   43 |     : public std::iterator<
+      |                   ^~~~~~~~
+In file included from /usr/include/c++/12/string:45,
+                 from /usr/include/c++/12/stdexcept:39,
+                 from /usr/include/c++/12/system_error:41,
+                 from /usr/include/c++/12/bits/std_mutex.h:39,
+                 from /usr/include/c++/12/condition_variable:39,
+                 from /home/user/offload/MoE-Modified/moe_infinity/ops/core/model/model_topology.h:9,
+                 from /home/user/offload/MoE-Modified/moe_infinity/ops/core/model/model_topology.cpp:6:
+/usr/include/c++/12/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
+/home/user/offload/MoE-Modified/moe_infinity/ops/core/utils/tqdm_utils.h:137:35: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+  137 | class RangeIterator : public std::iterator<std::forward_iterator_tag, IntType> {
+      |                                   ^~~~~~~~
+/usr/include/c++/12/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
+/home/user/offload/MoE-Modified/moe_infinity/ops/core/model/model_topology.cpp: In member function ‘void ArcherTopologyHandle::InitializeTopology(const std::vector<std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<std::vector<unsigned int, std::allocator<unsigned int> >, std::allocator<std::vector<unsigned int, std::allocator<unsigned int> > > > > >&)’:
+/home/user/offload/MoE-Modified/moe_infinity/ops/core/model/model_topology.cpp:413:10: warning: variable ‘num_experts’ set but not used [-Wunused-but-set-variable]
+  413 |   size_t num_experts = 0;
+      |          ^~~~~~~~~~~
+[2/2] c++ logger.o cuda_utils.o model_topology.o archer_prefetch_handle.o task_scheduler.o task_thread.o memory_pool.o stream_pool.o host_caching_allocator.o device_caching_allocator.o py_archer_prefetch.o expert_dispatcher.o expert_module.o archer_aio_thread.o archer_prio_aio_handle.o archer_aio_utils.o archer_aio_threadpool.o archer_tensor_handle.o archer_tensor_index.o thread.o exception.o date.o process_info.o logging.o log_file.o timestamp.o file_util.o countdown_latch.o timezone.o log_stream.o thread_pool.o -shared -L/home/user/miniconda3/envs/moe-infinity/lib/python3.9/site-packages/torch/lib -lc10 -ltorch_cpu -ltorch -ltorch_python -o prefetch.so
+Loading extension module prefetch...
+Time to load prefetch op: 42.841389894485474 seconds
+Loading model from offload_path ...
+DeepseekV2ForCausalLM has generative capabilities, as `prepare_inputs_for_generation` is explicitly overwritten. However, it doesn't directly inherit from `GenerationMixin`. From 👉v4.50👈 onwards, `PreTrainedModel` will NOT inherit from `GenerationMixin`, and this model will lose the ability to call `generate` and other related functions.
+  - If you're using `trust_remote_code=True`, you can get rid of this warning by loading the model with an auto class. See https://huggingface.co/docs/transformers/en/model_doc/auto#auto-classes
+  - If you are the owner of the model architecture code, please modify your model class such that it inherits from `GenerationMixin` (after `PreTrainedModel`, otherwise you'll get an exception).
+  - If you are not the owner of the model architecture class, please contact the model code owner to update it.

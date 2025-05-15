@@ -47,6 +47,7 @@ struct Node {
   std::condition_variable cv;
 
   float cache_priority = 0.0;
+  float base_priority = 0.0;
   std::uint64_t visit_count = 0;
   std::uint64_t incache_visit_count = 0;
   std::uint64_t unused_count = 0;

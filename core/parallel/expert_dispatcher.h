@@ -75,6 +75,9 @@ class ExpertDispatcher : public base::noncopyable {
   void RegisterExpert(int layer_idx, int expert_idx,
                       const std::vector<std::uint32_t>& tensor_ids);
   void ClearExpertCacheCounts();
+  void ClearExpertCachePriority();
+  void SetExpertCachePriority(const std::string& priority_file);
+  void GetCurrentState(int num_experts, int num_layers, const std::string& filepath);
   void SetExpectedQueue(int expected_pending = 0) {
     pending_.store(expected_pending);
   }
@@ -91,7 +94,6 @@ class ExpertDispatcher : public base::noncopyable {
 
   void GPUFetchFunc(int gpu_id);
   void GPUExecFunc(int gpu_id);
-
   // void GPUThreadFunc(int gpu_id);
 
   void OutputFunc(ExecArgs args, torch::Tensor output, int gpu_id);
@@ -117,7 +119,7 @@ class ExpertDispatcher : public base::noncopyable {
   std::vector<std::mutex> exec_mutex_;
   std::vector<std::condition_variable> input_cv_;
   std::vector<std::condition_variable> exec_cv_;
-
+  ExpertNodePtr evict_expert = nullptr;
   std::mutex output_mutex_;
   // std::mutex exec_mutex_;
   std::mutex gpu_overload_mutex_;
@@ -134,4 +136,8 @@ class ExpertDispatcher : public base::noncopyable {
   std::vector<int64_t> cache_sizes_;
 
   int cache_capacity_ = 0;
+  int totle_dispatch = 0;
+  int totle_hit = 0;
+  int totle_decode = 0;
+  int max_visit_count = 0;
 };

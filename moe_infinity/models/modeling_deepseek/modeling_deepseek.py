@@ -57,7 +57,7 @@ from transformers.utils import (
 from transformers.utils.import_utils import is_torch_fx_available
 
 from .configuration_deepseek import DeepseekV2Config
-
+DEBUG = False
 if is_flash_attn_2_available():
     from flash_attn import flash_attn_func, flash_attn_varlen_func
     from flash_attn.bert_padding import (  # noqa
@@ -1312,13 +1312,12 @@ class DeepseekV2DecoderLayer(nn.Module):
     def __init__(self, config: DeepseekV2Config, layer_idx: int):
         super().__init__()
         self.hidden_size = config.hidden_size
-
+        self.layer_idx = layer_idx
         self.self_attn = ATTENTION_CLASSES[config._attn_implementation](
             config=config, layer_idx=layer_idx
         )
-
         self.mlp = (
-            DeepseekV2MoE(config)
+            DeepseekV2MoE(config)# 实际上使用 deepseek.py里面的MLP-block
             if (
                 config.n_routed_experts is not None
                 and layer_idx >= config.first_k_dense_replace
@@ -1363,6 +1362,7 @@ class DeepseekV2DecoderLayer(nn.Module):
             warnings.warn(
                 "Passing `padding_mask` is deprecated and will be removed in v4.37. Please make sure use `attention_mask` instead.`"
             )
+        
         residual = hidden_states
 
         hidden_states = self.input_layernorm(hidden_states)
@@ -1382,6 +1382,8 @@ class DeepseekV2DecoderLayer(nn.Module):
         # Fully Connected
         residual = hidden_states
         hidden_states = self.post_attention_layernorm(hidden_states)
+        # if DEBUG:
+        print(f"\n=== Layer {self.layer_idx if hasattr(self, 'layer_idx') else 'unknown'} MLP===")
         hidden_states = self.mlp(hidden_states)
         hidden_states = residual + hidden_states
 

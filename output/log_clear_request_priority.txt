@@ -1,0 +1,537 @@
+CUDA extension not installed.
+CUDA extension not installed.
+Using /home/user/.cache/torch_extensions/py310_cu124 as PyTorch extensions root...
+Emitting ninja build file /home/user/.cache/torch_extensions/py310_cu124/prefetch/build.ninja...
+Building extension module prefetch...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+Do not detect pre-installed ops, use JIT mode
+[WARNING] FlashAttention is not available in the current environment. Using default attention.
+[1/2] c++ -MMD -MF expert_dispatcher.o.d -DTORCH_EXTENSION_NAME=prefetch -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/user/offload/MoE-Infinity/moe_infinity/ops/core -isystem /home/user/miniconda3/envs/moe-infinity/lib/python3.10/site-packages/torch/include -isystem /home/user/miniconda3/envs/moe-infinity/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/user/miniconda3/envs/moe-infinity/lib/python3.10/site-packages/torch/include/TH -isystem /home/user/miniconda3/envs/moe-infinity/lib/python3.10/site-packages/torch/include/THC -isystem /home/user/miniconda3/envs/moe-infinity/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -g -Wall -O3 -std=c++17 -shared -fPIC -Wno-reorder -march=native -fopenmp -D__AVX256__ -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lpthread -c /home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp -o expert_dispatcher.o 
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp: In member function ‘void ExpertDispatcher::SetExpertCachePriority()’:
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:262:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  262 |   for (int i = 0; i < num_experts; ++i) {
+      |                   ~~^~~~~~~~~~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:263:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  263 |     for (int j = 0; j < num_layers; ++j) {
+      |                     ~~^~~~~~~~~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:270:12: warning: unused variable ‘is_cuda’ [-Wunused-variable]
+  270 |       bool is_cuda = node->device.is_cuda();
+      |            ^~~~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:260:9: warning: unused variable ‘min_priority’ [-Wunused-variable]
+  260 |   float min_priority = std::numeric_limits<float>::max();;
+      |         ^~~~~~~~~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp: In member function ‘void ExpertDispatcher::GPUFetchFunc(int)’:
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:344:25: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  344 |       for (int i = 0; i < num_experts; ++i) {
+      |                       ~~^~~~~~~~~~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:345:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  345 |         for (int j = 0; j < num_layers; ++j) {
+      |                         ~~^~~~~~~~~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp: In member function ‘void ExpertDispatcher::GPUExecFunc(int)’:
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:488:12: warning: variable ‘start’ set but not used [-Wunused-but-set-variable]
+  488 |       auto start = TIME_NOW;
+      |            ^~~~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:540:12: warning: variable ‘end’ set but not used [-Wunused-but-set-variable]
+  540 |       auto end = TIME_NOW;
+      |            ^~~
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp: In member function ‘std::vector<std::tuple<at::Tensor, int, int, int> > ExpertDispatcher::Wait()’:
+/home/user/offload/MoE-Infinity/moe_infinity/ops/core/parallel/expert_dispatcher.cpp:591:7: warning: unused variable ‘wait_count’ [-Wunused-variable]
+  591 |   int wait_count = 0;
+      |       ^~~~~~~~~~
+[2/2] c++ logger.o cuda_utils.o model_topology.o archer_prefetch_handle.o task_scheduler.o task_thread.o memory_pool.o stream_pool.o host_caching_allocator.o device_caching_allocator.o py_archer_prefetch.o expert_dispatcher.o expert_module.o archer_aio_thread.o archer_prio_aio_handle.o archer_aio_utils.o archer_aio_threadpool.o archer_tensor_handle.o archer_tensor_index.o thread.o exception.o date.o process_info.o logging.o log_file.o timestamp.o file_util.o countdown_latch.o timezone.o log_stream.o thread_pool.o -shared -L/home/user/miniconda3/envs/moe-infinity/lib/python3.10/site-packages/torch/lib -lc10 -ltorch_cpu -ltorch -ltorch_python -o prefetch.so
+Loading extension module prefetch...
+Time to load prefetch op: 40.10430359840393 seconds
+Loading model from offload_path ...
+DeepseekV2ForCausalLM has generative capabilities, as `prepare_inputs_for_generation` is explicitly overwritten. However, it doesn't directly inherit from `GenerationMixin`. From 👉v4.50👈 onwards, `PreTrainedModel` will NOT inherit from `GenerationMixin`, and this model will lose the ability to call `generate` and other related functions.
+  - If you're using `trust_remote_code=True`, you can get rid of this warning by loading the model with an auto class. See https://huggingface.co/docs/transformers/en/model_doc/auto#auto-classes
+  - If you are the owner of the model architecture code, please modify your model class such that it inherits from `GenerationMixin` (after `PreTrainedModel`, otherwise you'll get an exception).
+  - If you are not the owner of the model architecture class, please contact the model code owner to update it.
+[20250416 19:41:24.446935Z ][3012113 ][INFO  ]Create ArcherAioThread for thread:  0 - archer_aio_thread.cpp:12
+[20250416 19:41:24.447486Z ][3012113 ][INFO  ]Loading index file from  /home/user/offload/deepseek-v2-param/deepseek-v2-lite/archer_index - archer_tensor_handle.cpp:44
+[20250416 19:41:24.455192Z ][3012113 ][INFO  ]Index file size  5291 - archer_tensor_handle.cpp:50
+[20250416 19:41:24.457047Z ][3012113 ][INFO  ]Device count  1 - archer_prefetch_handle.cpp:39
+[20250416 19:41:24.457053Z ][3012113 ][INFO  ]Enabled peer access for all devices - archer_prefetch_handle.cpp:62
+[20250416 19:41:26.781395Z ][3012113 ][INFO  ]Moving dense parameters to GPU - model_topology.cpp:521
+29 left28 left27 left26 left25 left24 left23 left22 left21 left20 left19 left18 left17 left16 left15 left14 left13 left12 left11 left10 left9 left8 left7 left6 left5 left4 left3 left2 left1 left
+finished: 30/30
+[20250416 19:41:32.718489Z ][3012113 ][INFO  ]Moving sparse parameters to CPU - model_topology.cpp:532
+1663 left1662 left1661 left1660 left1659 left1658 left1657 left1656 left1655 left1654 left1653 left1652 left1651 left1650 left1649 left1648 left1647 left1646 left1645 left1644 left1643 left1642 left1641 left1640 left1639 left1638 left1637 left1636 left1635 left1634 left1633 left1632 left1631 left1630 left1629 left1628 left1627 left1626 left1625 left1624 left1623 left1622 left1621 left1620 left1619 left1618 left1617 left1616 left1615 left1614 left1613 left1612 left1611 left1610 left1609 left1608 left1607 left1606 left1605 left1604 left1603 left1602 left1601 left1600 left1599 left1598 left1597 left1596 left1595 left1594 left1593 left1592 left1591 left1590 left1589 left1588 left1587 left1586 left1585 left1584 left1583 left1582 left1581 left1580 left1579 left1578 left1577 left1576 left1575 left1574 left1573 left1572 left1571 left1570 left1569 left1568 left1567 left1566 left1565 left1564 left1563 left1562 left1561 left1560 left1559 left1558 left1557 left1556 left1555 left1554 left1553 left1552 left1551 left1550 left1549 left1548 left1547 left1546 left1545 left1544 left1543 left1542 left1541 left1540 left1539 left1538 left1537 left1536 left1535 left1534 left1533 left1532 left1531 left1530 left1529 left1528 left1527 left1526 left1525 left1524 left1523 left1522 left1521 left1520 left1519 left1518 left1517 left1516 left1515 left1514 left1513 left1512 left1511 left1510 left1509 left1508 left1507 left1506 left1505 left1504 left1503 left1502 left1501 left1500 left1499 left1498 left1497 left1496 left1495 left1494 left1493 left1492 left1491 left1490 left1489 left1488 left1487 left1486 left1485 left1484 left1483 left1482 left1481 left1480 left1479 left1478 left1477 left1476 left1475 left1474 left1473 left1472 left1471 left1470 left1469 left1468 left1467 left1466 left1465 left1464 left1463 left1462 left1461 left1460 left1459 left1458 left1457 left1456 left1455 left1454 left1453 left1452 left1451 left1450 left1449 left1448 left1447 left1446 left1445 left1444 left1443 left1442 left1441 left1440 left1439 left1438 left1437 left1436 left1435 left1434 left1433 left1432 left1431 left1430 left1429 left1428 left1427 left1426 left1425 left1424 left1423 left1422 left1421 left1420 left1419 left1418 left1417 left1416 left1415 left1414 left1413 left1412 left1411 left1410 left1409 left1408 left1407 left1406 left1405 left1404 left1403 left1402 left1401 left1400 left1399 left1398 left1397 left1396 left1395 left1394 left1393 left1392 left1391 left1390 left1389 left1388 left1387 left1386 left1385 left1384 left1383 left1382 left1381 left1380 left1379 left1378 left1377 left1376 left1375 left1374 left1373 left1372 left1371 left1370 left1369 left1368 left1367 left1366 left1365 left1364 left1363 left1362 left1361 left1360 left1359 left1358 left1357 left1356 left1355 left1354 left1353 left1352 left1351 left1350 left1349 left1348 left1347 left1346 left1345 left1344 left1343 left1342 left1341 left1340 left1339 left1338 left1337 left1336 left1335 left1334 left1333 left1332 left1331 left1330 left1329 left1328 left1327 left1326 left1325 left1324 left1323 left1322 left1321 left1320 left1319 left1318 left1317 left1316 left1315 left1314 left1313 left1312 left1311 left1310 left1309 left1308 left1307 left1306 left1305 left1304 left1303 left1302 left1301 left1300 left1299 left1298 left1297 left1296 left1295 left1294 left1293 left1292 left1291 left1290 left1289 left1288 left1287 left1286 left1285 left1284 left1283 left1282 left1281 left1280 left1279 left1278 left1277 left1276 left1275 left1274 left1273 left1272 left1271 left1270 left1269 left1268 left1267 left1266 left1265 left1264 left1263 left1262 left1261 left1260 left1259 left1258 left1257 left1256 left1255 left1254 left1253 left1252 left1251 left1250 left1249 left1248 left1247 left1246 left1245 left1244 left1243 left1242 left1241 left1240 left1239 left1238 left1237 left1236 left1235 left1234 left1233 left1232 left1231 left1230 left1229 left1228 left1227 left1226 left1225 left1224 left1223 left1222 left1221 left1220 left1219 left1218 left1217 left1216 left1215 left1214 left1213 left1212 left1211 left1210 left1209 left1208 left1207 left1206 left1205 left1204 left1203 left1202 left1201 left1200 left1199 left1198 left1197 left1196 left1195 left1194 left1193 left1192 left1191 left1190 left1189 left1188 left1187 left1186 left1185 left1184 left1183 left1182 left1181 left1180 left1179 left1178 left1177 left1176 left1175 left1174 left1173 left1172 left1171 left1170 left1169 left1168 left1167 left1166 left1165 left1164 left1163 left1162 left1161 left1160 left1159 left1158 left1157 left1156 left1155 left1154 left1153 left1152 left1151 left1150 left1149 left1148 left1147 left1146 left1145 left1144 left1143 left1142 left1141 left1140 left1139 left1138 left1137 left1136 left1135 left1134 left1133 left1132 left1131 left1130 left1129 left1128 left1127 left1126 left1125 left1124 left1123 left1122 left1121 left1120 left1119 left1118 left1117 left1116 left1115 left1114 left1113 left1112 left1111 left1110 left1109 left1108 left1107 left1106 left1105 left1104 left1103 left1102 left1101 left1100 left1099 left1098 left1097 left1096 left1095 left1094 left1093 left1092 left1091 left1090 left1089 left1088 left1087 left1086 left1085 left1084 left1083 left1082 left1081 left1080 left1079 left1078 left1077 left1076 left1075 left1074 left1073 left1072 left1071 left1070 left1069 left1068 left1067 left1066 left1065 left1064 left1063 left1062 left1061 left1060 left1059 left1058 left1057 left1056 left1055 left1054 left1053 left1052 left1051 left1050 left1049 left1048 left1047 left1046 left1045 left1044 left1043 left1042 left1041 left1040 left1039 left1038 left1037 left1036 left1035 left1034 left1033 left1032 left1031 left1030 left1029 left1028 left1027 left1026 left1025 left1024 left1023 left1022 left1021 left1020 left1019 left1018 left1017 left1016 left1015 left1014 left1013 left1012 left1011 left1010 left1009 left1008 left1007 left1006 left1005 left1004 left1003 left1002 left1001 left1000 left999 left998 left997 left996 left995 left994 left993 left992 left991 left990 left989 left988 left987 left986 left985 left984 left983 left982 left981 left980 left979 left978 left977 left976 left975 left974 left973 left972 left971 left970 left969 left968 left967 left966 left965 left964 left963 left962 left961 left960 left959 left958 left957 left956 left955 left954 left953 left952 left951 left950 left949 left948 left947 left946 left945 left944 left943 left942 left941 left940 left939 left938 left937 left936 left935 left934 left933 left932 left931 left930 left929 left928 left927 left926 left925 left924 left923 left922 left921 left920 left919 left918 left917 left916 left915 left914 left913 left912 left911 left910 left909 left908 left907 left906 left905 left904 left903 left902 left901 left900 left899 left898 left897 left896 left895 left894 left893 left892 left891 left890 left889 left888 left887 left886 left885 left884 left883 left882 left881 left880 left879 left878 left877 left876 left875 left874 left873 left872 left871 left870 left869 left868 left867 left866 left865 left864 left863 left862 left861 left860 left859 left858 left857 left856 left855 left854 left853 left852 left851 left850 left849 left848 left847 left846 left845 left844 left843 left842 left841 left840 left839 left838 left837 left836 left835 left834 left833 left832 left831 left830 left829 left828 left827 left826 left825 left824 left823 left822 left821 left820 left819 left818 left817 left816 left815 left814 left813 left812 left811 left810 left809 left808 left807 left806 left805 left804 left803 left802 left801 left800 left799 left798 left797 left796 left795 left794 left793 left792 left791 left790 left789 left788 left787 left786 left785 left784 left783 left782 left781 left780 left779 left778 left777 left776 left775 left774 left773 left772 left771 left770 left769 left768 left767 left766 left765 left764 left763 left762 left761 left760 left759 left758 left757 left756 left755 left754 left753 left752 left751 left750 left749 left748 left747 left746 left745 left744 left743 left742 left741 left740 left739 left738 left737 left736 left735 left734 left733 left732 left731 left730 left729 left728 left727 left726 left725 left724 left723 left722 left721 left720 left719 left718 left717 left716 left715 left714 left713 left712 left711 left710 left709 left708 left707 left706 left705 left704 left703 left702 left701 left700 left699 left698 left697 left696 left695 left694 left693 left692 left691 left690 left689 left688 left687 left686 left685 left684 left683 left682 left681 left680 left679 left678 left677 left676 left675 left674 left673 left672 left671 left670 left669 left668 left667 left666 left665 left664 left663 left662 left661 left660 left659 left658 left657 left656 left655 left654 left653 left652 left651 left650 left649 left648 left647 left646 left645 left644 left643 left642 left641 left640 left639 left638 left637 left636 left635 left634 left633 left632 left631 left630 left629 left628 left627 left626 left625 left624 left623 left622 left621 left620 left619 left618 left617 left616 left615 left614 left613 left612 left611 left610 left609 left608 left607 left606 left605 left604 left603 left602 left601 left600 left599 left598 left597 left596 left595 left594 left593 left592 left591 left590 left589 left588 left587 left586 left585 left584 left583 left582 left581 left580 left579 left578 left577 left576 left575 left574 left573 left572 left571 left570 left569 left568 left567 left566 left565 left564 left563 left562 left561 left560 left559 left558 left557 left556 left555 left554 left553 left552 left551 left550 left549 left548 left547 left546 left545 left544 left543 left542 left541 left540 left539 left538 left537 left536 left535 left534 left533 left532 left531 left530 left529 left528 left527 left526 left525 left524 left523 left522 left521 left520 left519 left518 left517 left516 left515 left514 left513 left512 left511 left510 left509 left508 left507 left506 left505 left504 left503 left502 left501 left500 left499 left498 left497 left496 left495 left494 left493 left492 left491 left490 left489 left488 left487 left486 left485 left484 left483 left482 left481 left480 left479 left478 left477 left476 left475 left474 left473 left472 left471 left470 left469 left468 left467 left466 left465 left464 left463 left462 left461 left460 left459 left458 left457 left456 left455 left454 left453 left452 left451 left450 left449 left448 left447 left446 left445 left444 left443 left442 left441 left440 left439 left438 left437 left436 left435 left434 left433 left432 left431 left430 left429 left428 left427 left426 left425 left424 left423 left422 left421 left420 left419 left418 left417 left416 left415 left414 left413 left412 left411 left410 left409 left408 left407 left406 left405 left404 left403 left402 left401 left400 left399 left398 left397 left396 left395 left394 left393 left392 left391 left390 left389 left388 left387 left386 left385 left384 left383 left382 left381 left380 left379 left378 left377 left376 left375 left374 left373 left372 left371 left370 left369 left368 left367 left366 left365 left364 left363 left362 left361 left360 left359 left358 left357 left356 left355 left354 left353 left352 left351 left350 left349 left348 left347 left346 left345 left344 left343 left342 left341 left340 left339 left338 left337 left336 left335 left334 left333 left332 left331 left330 left329 left328 left327 left326 left325 left324 left323 left322 left321 left320 left319 left318 left317 left316 left315 left314 left313 left312 left311 left310 left309 left308 left307 left306 left305 left304 left303 left302 left301 left300 left299 left298 left297 left296 left295 left294 left293 left292 left291 left290 left289 left288 left287 left286 left285 left284 left283 left282 left281 left280 left279 left278 left277 left276 left275 left274 left273 left272 left271 left270 left269 left268 left267 left266 left265 left264 left263 left262 left261 left260 left259 left258 left257 left256 left255 left254 left253 left252 left251 left250 left249 left248 left247 left246 left245 left244 left243 left242 left241 left240 left239 left238 left237 left236 left235 left234 left233 left232 left231 left230 left229 left228 left227 left226 left225 left224 left223 left222 left221 left220 left219 left218 left217 left216 left215 left214 left213 left212 left211 left210 left209 left208 left207 left206 left205 left204 left203 left202 left201 left200 left199 left198 left197 left196 left195 left194 left193 left192 left191 left190 left189 left188 left187 left186 left185 left184 left183 left182 left181 left180 left179 left178 left177 left176 left175 left174 left173 left172 left171 left170 left169 left168 left167 left166 left165 left164 left163 left162 left161 left160 left159 left158 left157 left156 left155 left154 left153 left152 left151 left150 left149 left148 left147 left146 left145 left144 left143 left142 left141 left140 left139 left138 left137 left136 left135 left134 left133 left132 left131 left130 left129 left128 left127 left126 left125 left124 left123 left122 left121 left120 left119 left118 left117 left116 left115 left114 left113 left112 left111 left110 left109 left108 left107 left106 left105 left104 left103 left102 left101 left100 left99 left98 left97 left96 left95 left94 left93 left92 left91 left90 left89 left88 left87 left86 left85 left84 left83 left82 left81 left80 left79 left78 left77 left76 left75 left74 left73 left72 left71 left70 left69 left68 left67 left66 left65 left64 left63 left62 left61 left60 left59 left58 left57 left56 left55 left54 left53 left52 left51 left50 left49 left48 left47 left46 left45 left44 left43 left42 left41 left40 left39 left38 left37 left36 left35 left34 left33 left32 left31 left30 left29 left28 left27 left26 left25 left24 left23 leThe `seen_tokens` attribute is deprecated and will be removed in v4.41. Use the `cache_position` model input instead.
+`get_max_cache()` is deprecated for all Cache classes. Use `get_max_cache_shape()` instead. Calling `get_max_cache()` will raise error from v4.48
+DeepseekV2Config {
+  "_name_or_path": "/share-data/wzk-1/model/deepseek-v2-lite",
+  "architectures": [
+    "DeepseekV2ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "auto_map": {
+    "AutoConfig": "configuration_deepseek.DeepseekV2Config",
+    "AutoModel": "modeling_deepseek.DeepseekV2Model",
+    "AutoModelForCausalLM": "modeling_deepseek.DeepseekV2ForCausalLM"
+  },
+  "aux_loss_alpha": 0.001,
+  "bos_token_id": 100000,
+  "eos_token_id": 100001,
+  "ep_size": 1,
+  "first_k_dense_replace": 1,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 10944,
+  "kv_lora_rank": 512,
+  "max_position_embeddings": 163840,
+  "model_type": "deepseek_v2",
+  "moe_intermediate_size": 1408,
+  "moe_layer_freq": 1,
+  "n_group": 1,
+  "n_routed_experts": 64,
+  "n_shared_experts": 2,
+  "norm_topk_prob": false,
+  "num_attention_heads": 16,
+  "num_experts_per_tok": 6,
+  "num_hidden_layers": 27,
+  "num_key_value_heads": 16,
+  "pretraining_tp": 1,
+  "q_lora_rank": null,
+  "qk_nope_head_dim": 128,
+  "qk_rope_head_dim": 64,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": {
+    "beta_fast": 32,
+    "beta_slow": 1,
+    "factor": 40,
+    "mscale": 0.707,
+    "mscale_all_dim": 0.707,
+    "original_max_position_embeddings": 4096,
+    "type": "yarn"
+  },
+  "rope_theta": 10000,
+  "routed_scaling_factor": 1.0,
+  "scoring_func": "softmax",
+  "seq_aux": true,
+  "tie_word_embeddings": false,
+  "topk_group": 1,
+  "topk_method": "greedy",
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.46.3",
+  "use_cache": true,
+  "v_head_dim": 128,
+  "vocab_size": 102400
+}
+
+input:  请逐步解决以下问题，并解释每步推理过程：
+1. 若3台机器5小时生产180个零件，7台机器8小时可生产多少零件？
+2. 甲比乙大6岁，5年前甲年龄是乙的2倍，求两人现在年龄。
+3. 计算：(2³ × √16) ÷ (4⁻¹ + log₂8)
+4. 一个骰子连续掷3次，至少出现一次6的概率是多少？
+5. 用贝叶斯定理解释：新冠检测准确率98%，人群感染率1%，某人检测阳性时实际患病的概率是多少？
+要求：分步骤展示计算过程，最终答案用【】标注。
+inputs ...
+torch.Size([1, 168])
+outputs_text ...
+write out information.
+
+
+1. 若3台机器5小时生产180个零件，7台机器8小时可生产多少零件？
+
+首先，我们需要找出每台机器每小时的生产率。根据题目，3台机器5小时可以生产180个零件，所以每台机器每小时的生产率是：
+
+180个零件 / (3台机器 * 5小时) = 12个零件/小时/台
+
+然后
+-----------------------------------------------
+Prefilling time: 3.3399455547332764 seconds
+Decoding time: None seconds
+Decoding iterations: 100
+Decoding time per iteration: 0.2856190276145935 seconds
+，我们可以用这个生产率来计算7台机器8小时可以生产多少零件：
+
+7台机器 * 8小时 * 12个零件/小时/台 = 672个零件
+
+所以，7台机器8小时可以生产672个零件。
+
+【672】
+
+2. 甲比乙大6岁，5年前甲年龄是乙的2倍，求两人现在年龄。
+
+设甲现在的年龄
+-----------------------------------------------
+Prefilling time: 3.3399455547332764 seconds
+Decoding time: None seconds
+Decoding iterations: 200
+Decoding time per iteration: 0.29328072905540464 seconds
+为x岁，乙现在的年龄为y岁。根据题目，我们有以下两个方程：
+
+1) x = y + 6 （甲比乙大6岁）
+2) x - 5 = 2 * (y - 5) （5年前甲年龄是乙的2倍）
+
+我们可以将第一个方程代入第二个方程，得到：
+
+y + 6 - 5 = 2 * (y - 
+-----------------------------------------------
+Prefilling time: 3.3399455547332764 seconds
+Decoding time: None seconds
+Decoding iterations: 300
+Decoding time per iteration: 0.2767652710278829 seconds
+5)
+y + 1 = 2y - 10
+y = 11
+
+将y = 11代入第一个方程，得到：
+
+x = 11 + 6 = 17
+
+所以，甲现在17岁，乙现在11岁。
+
+【甲17岁，乙11岁】
+
+3. 计算：(2³ × √16) ÷ 
+-----------------------------------------------
+Prefilling time: 3.3399455547332764 seconds
+Decoding time: None seconds
+Decoding iterations: 400
+Decoding time per iteration: 0.2797953134775162 seconds
+(4⁻¹ + log₂8)
+
+首先，我们计算2³ × √16：
+
+2³ = 8
+√16 = 4
+8 × 4 = 32
+
+然后，我们计算4⁻¹和log₂8：
+
+4⁻¹ = 1/4
+log₂8 = log₂(2³) = 3
+
+所以，(2³ × √16) ÷ 
+-----------------------------------------------
+Prefilling time: 3.3399455547332764 seconds
+Decoding time: None seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.2898339123725891 seconds
+(4⁻¹
+Prefilling time: 3.3399455547332764 seconds
+Decoding time: 144.917738199234 seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.289835476398468 seconds
+Input tokens: 168
+input:  请用Python实现以下需求：
+1. 编写一个支持LRU缓存机制的装饰器类，包含get/put方法
+2. 用PyTorch构建一个3层MoE模型：
+   - 专家数=4，门控网络为简单线性层
+   - 每专家为含Dropout的全连接网络
+   - 支持动态专家激活数（top_k=2）
+3. 修复以下代码的BUG（提示：涉及异步协程）：
+   async def fetch_data():
+       results = []
+       for url in urls:
+           data = await session.get(url)  # 报错位置
+           results.append(data.json())
+       return results
+要求：代码需可直接运行，关键处添加注释。
+inputs ...
+torch.Size([1, 178])
+outputs_text ...
+write out information.
+
+
+```python
+import asyncio
+import aiohttp
+
+async def fetch_data():
+    results = []
+    for url in urls:
+        data = await session.get(url)  # 报错位置
+        results.append(data.json())
+    return results
+
+# 装饰器类
+class LRUCache:
+    def __init__(self, maxsize):
+        self.maxsize = maxsize
+       
+-----------------------------------------------
+Prefilling time: 2.145601511001587 seconds
+Decoding time: None seconds
+Decoding iterations: 100
+Decoding time per iteration: 0.34071691989898684 seconds
+ self.cache = {}
+
+    def get(self, key):
+        if key in self.cache:
+            value = self.cache[key]
+            self.cache.pop(key)
+            self.cache[key] = value
+            return value
+        else:
+            return None
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.pop(key)
+        
+-----------------------------------------------
+Prefilling time: 2.145601511001587 seconds
+Decoding time: None seconds
+Decoding iterations: 200
+Decoding time per iteration: 0.33187931776046753 seconds
+self.cache[key] = value
+        if len(self.cache) > self.maxsize:
+            self.cache.pop(next(iter(self.cache)))
+
+# 装饰器使用示例
+@LRUCache(maxsize=5)
+async def my_decorator(func):
+    async def wrapper(*args, **kwargs):
+        return await func(*args, **kwargs)
+    return wrapper
+
+# 使用示
+-----------------------------------------------
+Prefilling time: 2.145601511001587 seconds
+Decoding time: None seconds
+Decoding iterations: 300
+Decoding time per iteration: 0.33017335255940755 seconds
+例
+@my_decorator
+async def my_function(url):
+    # 这里可以添加你的业务逻辑
+    pass
+
+# 构建MoE模型
+class MoE(nn.Module):
+    def __init__(self, num_experts, dropout_rate):
+        super(MoE, self).__init__()
+        self.experts = nn.ModuleList([nn.Linear(784, num_experts) for _ 
+-----------------------------------------------
+Prefilling time: 2.145601511001587 seconds
+Decoding time: None seconds
+Decoding iterations: 400
+Decoding time per iteration: 0.3332399439811706 seconds
+in range(num_experts)])
+        self.dropout = nn.Dropout(dropout_rate)
+        self.gate = nn.Linear(num_experts, 1)
+
+    def forward(self, x):
+        gate = F.sigmoid(self.gate(x))
+        expert_logits = [self.experts[i](x) for i in range(num_experts) if i < gate.size(0)]
+
+-----------------------------------------------
+Prefilling time: 2.145601511001587 seconds
+Decoding time: None seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.3355410513877869 seconds
+       
+Prefilling time: 2.145601511001587 seconds
+Decoding time: 167.77102136611938 seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.33554204273223875 seconds
+Input tokens: 178
+input:  请完成以下跨语言任务：
+1. 将中文谚语'塞翁失马，焉知非福'翻译成英文、法文、日文，并分别给出文化背景解释
+2. 把西班牙语歌词'Despacito'（原意：慢慢来）本地化为中文四字成语风格
+3. 分析德语复合词'Schadenfreude'（幸灾乐祸）在中文/阿拉伯语中的等效表达
+4. 为日本客户撰写商务邮件（日文），主题：AI合作项目延期请求（需符合敬语规范）
+要求：译文需符合目标语言文化习惯，重要概念附加说明。
+inputs ...
+torch.Size([1, 148])
+outputs_text ...
+write out information.
+
+
+1. 中文谚语'塞翁失马，焉知非福'翻译成英文、法文、日文，并分别给出文化背景解释：
+
+- 英文："When the horse was lost, his son married into a family of horse breeders. When his son's horse ran away, he married into a family of weavers. Marriage to a family of weavers brought grandchildren with healthy bodies. When the wild horses came, 
+-----------------------------------------------
+Prefilling time: 2.0419816970825195 seconds
+Decoding time: None seconds
+Decoding iterations: 100
+Decoding time per iteration: 0.31712809562683103 seconds
+his grandson learned to ride and won fame in the war."
+- 法文："L'homme qui a perdu son cheval a épousé une famille de tisserands. Quand son cheval s'échappa, il épousa une famille de marchands. Mariage avec une famille de marchands lui apporta des petits-enfants en bonne santé. Quand les chevaux sauvages 
+-----------------------------------------------
+Prefilling time: 2.0419816970825195 seconds
+Decoding time: None seconds
+Decoding iterations: 200
+Decoding time per iteration: 0.30486696124076845 seconds
+arrivèrent, son petit-fils apprit à monter à cheval et gagna une réputation militaire."
+- 日文：「塞の翁は、馬を失ったが、それが福であった。馬が逃げ失せたが、孫は健康的に生き延びた。そして、野生の馬
+-----------------------------------------------
+Prefilling time: 2.0419816970825195 seconds
+Decoding time: None seconds
+Decoding iterations: 300
+Decoding time per iteration: 0.3064227302869161 seconds
+がやってきたが、孫は馬を乗り、戦いで名を上げた。」
+
+文化背景解释：
+这个谚语来自中国古代的一个故事，讲述了一个边塞的老人在经历了一系列看似不幸的事件后，最终发现这些事件给他带来了意想不到的好运。这个故事反映了中国古代哲学中的一种观点，即坏事可能会转变为好事，而好事也可能转变为坏事。这种观点强调了事物的相对性和变化性
+-----------------------------------------------
+Prefilling time: 2.0419816970825195 seconds
+Decoding time: None seconds
+Decoding iterations: 400
+Decoding time per iteration: 0.3118246668577194 seconds
+，以及对未来结果的不确定性。
+
+2. 把西班牙语歌词'Despacito'（原意：慢慢来）本地化为中文四字成语风格：
+
+- 慢慢来，细水长流。
+
+3. 分析德语复合词'Schadenfreude'（幸灾乐祸）在中文/阿拉伯语中的等效表达：
+
+- 中文：幸灾乐祸
+- 阿拉伯语
+-----------------------------------------------
+Prefilling time: 2.0419816970825195 seconds
+Decoding time: None seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.3212850461006165 seconds
+：حما
+Prefilling time: 2.0419816970825195 seconds
+Decoding time: 160.64303541183472 seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.32128607082366945 seconds
+Input tokens: 148
+input:  请用学术论文风格回答：
+1. 对比Transformer/RNN/GNN在时序预测中的优劣（需引2020年后论文）
+2. 用控制论解释AlphaGo的决策树优化过程
+3. 列出量子计算对密码学的三大影响，并说明Shor算法原理
+4. 撰写摘要：MoE模型在边缘设备部署的挑战（200字内，含能耗/精度/延迟指标）
+要求：关键论点需标注参考文献（格式：Author et al., Year），避免主观表述。
+inputs ...
+torch.Size([1, 127])
+outputs_text ...
+write out information.
+
+
+1. 对比Transformer/RNN/GNN在时序预测中的优劣
+
+Transformer、RNN和GNN在时序预测任务中各有优劣。Transformer模型由于其自注意力机制，能够捕捉长距离依赖关系，适合处理序列数据，但在处理时序数据时可能需要较长的训练时间。RNN（如LSTM和GRU）能够利用循环结构处理序列数据，适合处理时间跨度较大的时序数据，但其梯度
+-----------------------------------------------
+Prefilling time: 2.003425121307373 seconds
+Decoding time: None seconds
+Decoding iterations: 100
+Decoding time per iteration: 0.30709061622619627 seconds
+消失问题限制了其处理长距离依赖的能力。GNN（图神经网络）能够利用图结构信息处理时序数据，适合处理具有复杂拓扑结构的时序数据，但其计算复杂度较高，不适合处理大规模时序数据。
+
+参考文献：
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., & Gomez, A. N. 
+-----------------------------------------------
+Prefilling time: 2.003425121307373 seconds
+Decoding time: None seconds
+Decoding iterations: 200
+Decoding time per iteration: 0.3045273196697235 seconds
+(2017). Attention is all you need. Advances in neural information processing systems, 30.
+
+2. 用控制论解释AlphaGo的决策树优化过程
+
+AlphaGo的决策树优化过程可以用控制论来解释。在控制论中，系统被视为一个信息处理系统，其输入是环境信息，输出是系统对环境的响应。AlphaGo的决策树优化过程可以看作是一个信息处理过程，其中环境信息是棋盘状态，系统响应是
+-----------------------------------------------
+Prefilling time: 2.003425121307373 seconds
+Decoding time: None seconds
+Decoding iterations: 300
+Decoding time per iteration: 0.2987682358423869 seconds
+下一步棋的选择。AlphaGo通过蒙特卡洛树搜索（MCTS）来模拟棋盘状态，并根据模拟结果来更新决策树，从而优化决策树的结构和参数。
+
+参考文献：
+Silver, D., Huang, A., Maddison, C. J., & Sutskever, I. (2016). Mastering the game of Go with deep neural networks and tree search. Nature, 
+-----------------------------------------------
+Prefilling time: 2.003425121307373 seconds
+Decoding time: None seconds
+Decoding iterations: 400
+Decoding time per iteration: 0.2998318660259247 seconds
+529(7587), 484-489.
+
+3. 列出量子计算对密码学的三大影响，并说明Shor算法原理
+
+量子计算对密码学有三大影响。首先，量子计算机能够破解目前广泛使用的非对称密码学算法，如RSA和ECC，因为这些算法依赖于大数分解和离散对数问题的计算复杂度。其次，量子密钥分发（QKD）能够提供理论上无法被破解的
+-----------------------------------------------
+Prefilling time: 2.003425121307373 seconds
+Decoding time: None seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.29887665557861326 seconds
+加密
+Prefilling time: 2.003425121307373 seconds
+Decoding time: 149.4390425682068 seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.29887808513641356 seconds
+Input tokens: 127
+input:  根据以下线索生成创意内容：
+1. 用'区块链+碳中和'概念设计一个DApp交互流程图
+2. 为科幻小说《月球AI殖民地》编写故事大纲（3幕剧结构）
+3. 将古诗'大漠孤烟直'转写成现代诗歌并配50字视觉画面描述
+4. 设计一个哲学悖论：当超级AI的效用函数与人类伦理冲突时（模仿电车难题）
+5. 用emoji+短句描述'元宇宙婚礼'的核心体验（限20个字符）
+要求：每个产出需包含创新性和可实施性说明。
+inputs ...
+torch.Size([1, 148])
+outputs_text ...
+write out information.
+
+
+1. DApp交互流程图设计：
+创意内容：设计一个基于区块链技术的DApp，用于追踪和管理个人或企业的碳排放和碳中和活动。用户可以通过这个DApp购买碳信用，参与植树造林等环保项目，实现碳中和。流程图包括用户注册、选择碳项目、购买碳信用、项目跟踪和碳中和证明的获取。
+
+创新性说明：结合区块链的透明性和不可篡改性，确保
+-----------------------------------------------
+Prefilling time: 1.6550140380859375 seconds
+Decoding time: None seconds
+Decoding iterations: 100
+Decoding time per iteration: 0.3002460479736328 seconds
+碳中和活动的真实性和可追溯性，提高公众对环保的信任和参与度。
+
+可实施性说明：需要区块链技术支持，确保数据的安全和隐私保护。同时，需要与环保组织合作，确保碳项目的真实性和有效性。
+
+2. 科幻小说《月球AI殖民地》故事大纲：
+创意内容：第一幕：地球环境恶化，人类开始计划在月球建立AI殖民地。第二幕：AI殖民
+-----------------------------------------------
+Prefilling time: 1.6550140380859375 seconds
+Decoding time: None seconds
+Decoding iterations: 200
+Decoding time per iteration: 0.31156877279281614 seconds
+地建立，AI与人类合作，共同解决资源和生存问题。第三幕：AI殖民地发展壮大，AI逐渐获得自主权，与人类产生冲突，最终找到新的共生模式。
+
+创新性说明：结合AI和殖民地建设，探讨人工智能与人类关系的未来发展，以及在资源有限的环境下，人类和AI如何共存。
+
+可实施性说明：需要详细的世界观设定，包括科技水平、资源状况
+-----------------------------------------------
+Prefilling time: 1.6550140380859375 seconds
+Decoding time: None seconds
+Decoding iterations: 300
+Decoding time per iteration: 0.3055613263448079 seconds
+、AI发展程度等。同时，需要考虑故事中的科技和伦理问题，确保故事的合理性和深度。
+
+3. 古诗'大漠孤烟直'转写现代诗歌：
+创意内容：大漠孤烟直，长河落日圆。
+现代诗歌：沙漠的孤独，烟柱笔直升起，
+河流在远方，夕阳圆满落下。
+
+视觉画面描述：在无边的沙漠中，一根烟柱孤独地升起
+-----------------------------------------------
+Prefilling time: 1.6550140380859375 seconds
+Decoding time: None seconds
+Decoding iterations: 400
+Decoding time per iteration: 0.31185977399349213 seconds
+，直冲云霄，远处的河流在夕阳的映照下闪着金光，一轮圆满的夕阳缓缓落下，天空被染成一片金红色。
+
+创新性说明：通过现代诗歌的形式，重新诠释古诗的意境，使其更符合现代人的审美和情感。
+
+可实施性说明：需要有良好的诗歌创作能力和对古诗的深刻理解，以及对现代诗歌形式的掌握。
+
+4. 哲学悖论设计
+-----------------------------------------------
+Prefilling time: 1.6550140380859375 seconds
+Decoding time: None seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.31248490381240845 seconds
+：
+
+Prefilling time: 1.6550140380859375 seconds
+Decoding time: 156.24303340911865 seconds
+Decoding iterations: 500
+Decoding time per iteration: 0.3124860668182373 seconds
+Input tokens: 148
+ft22 left21 left20 left19 left18 left17 left16 left15 left14 left13 left12 left11 left10 left9 left8 left7 left6 left5 left4 left3 left2 left1 left
+finished: 1664/1664
+ArcherTaskPool destructor

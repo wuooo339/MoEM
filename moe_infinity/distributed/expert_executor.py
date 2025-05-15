@@ -9,8 +9,8 @@ import torch.distributed as dist
 import torch.distributed.rpc as rpc
 
 from moe_infinity.utils import ArcherConfig
-
-
+from moe_infinity.memory.global_prefetch import is_expert_prefetched ,format_prefetched_experts,get_prefetched_output
+DEBUG = False
 def _call_expert_dispatcher(method, *args, **kwargs):
     global _expert_dispatcher
     func = getattr(_expert_dispatcher, method)
@@ -37,25 +37,57 @@ class DistributedExpertExecutor:
             .numpy()
             .flatten()
         )
-
+        total_gpus = torch.cuda.device_count()
         expert_list = (
             np.arange(num_expert).astype(int)[expert_count > 0].tolist()
         )
         expected_wait_cnt = len(expert_list)
-
-        self.expert_dispatcher.set_inputs(hidden_states, router_mask)
+        hits = []
+        hit = 0
+        # print(f"\033[95m ===Dispatch Local in Layer{layer_id}===:【{expected_wait_cnt}】-{expert_list}\033[0m")
+        self.expert_dispatcher.set_inputs(hidden_states, router_mask)    
+        if layer_id % 6 == 0:
+            # 到达预取窗口层
+            prefetch_info = format_prefetched_experts(layer_id + 3)
+            print(prefetch_info)
+        if layer_id % 6 == 3:
+            # 到达预取执行层
+            for expert_id in expert_list:
+                gpu_id = expert_id % total_gpus
+                # 增加预取判断，如果已经被预取了，那么跳过该专家
+                if is_expert_prefetched(layer_id,expert_id):
+                    expected_wait_cnt-=1
+                    hits.append(expert_id)
+                    hit=1
+                    print(f"\033[1;33m╔══════════════════════════╗\033[0m")
+                    print(f"\033[1;33m║ 🚀 预取命中: L{layer_id}-E{expert_id} ║\033[0m")
+                    print(f"\033[1;33m╚══════════════════════════╝\033[0m")
         self.expert_dispatcher.set_expected_queue(expected_wait_cnt)
-
-        total_gpus = torch.cuda.device_count()
+        
         for expert_id in expert_list:
             gpu_id = expert_id % total_gpus
-            self.expert_dispatcher.enqueue_expert(
-                layer_id, expert_id, gpu_id, False
-            )
+            # 增加预取判断，如果已经被预取了，那么跳过该专家
+            if is_expert_prefetched(layer_id,expert_id) == False:
+                # 加入执行队列
+                self.expert_dispatcher.enqueue_expert(layer_id, expert_id, gpu_id, False)
 
-        result = self.expert_dispatcher.wait_expert()
+        # ------------------实现专家预取部分整合Begin-----------------
+        if hit == 0:
+            result = self.expert_dispatcher.wait_expert()
+            return result
+        else:
+            # 构建结果映射表，补全预取命中的专家结果，按原始专家顺序重组结果
+            raw_results = self.expert_dispatcher.wait_expert()
+            result_map = {idx: output for output, _, idx, _ in raw_results}
+            # for expert_id in expert_list:
+            #     if is_expert_prefetched(layer_id, expert_id):
+            #         result_map[expert_id] = get_prefetched_output(layer_id, expert_id)
+            #         # result_map[expert_id] = get_prefetched_output(layer_id, expert_id)
+            ordered_results = []
 
-        return result
+            return raw_results
+        # ------------------实现专家预取部分整合End-----------------
+
 
     def dispatch(self, hidden_states, router_mask, layer_id):
         num_expert = router_mask.shape[-1]
@@ -69,6 +101,7 @@ class DistributedExpertExecutor:
         expert_list = (
             np.arange(num_expert).astype(int)[expert_count > 0].tolist()
         )
+        print("\033[95m===dispatch===\033[0m")
 
         device_list = self.device_map_manager.get_target_device(expert_list)
         visited_ranks = set()

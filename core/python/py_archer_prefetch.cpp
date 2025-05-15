@@ -10,7 +10,6 @@
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
   py::class_<ArcherPrefetchHandle>(m, "prefetch_handle")
       .def(py::init<const std::string&, const double>())
-
       .def("offload", &ArcherPrefetchHandle::OffloadTensor)
       .def("register", (void(ArcherPrefetchHandle::*)(torch::Tensor&,
                                                       const std::uint32_t)) &
@@ -84,10 +83,14 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
   py::class_<ExpertDispatcher>(m, "expert_dispatcher")
       .def(py::init<int, int, int, int, int>())
       .def("register_expert", &ExpertDispatcher::RegisterExpert)
+      .def("get_cur_state", &ExpertDispatcher::GetCurrentState)
       .def("enqueue_expert", &ExpertDispatcher::EnqueueExpert)
       .def("set_inputs", &ExpertDispatcher::SetInputs)
       .def("set_expected_queue", &ExpertDispatcher::SetExpectedQueue)
       .def("wait_expert", &ExpertDispatcher::WaitExpert)
-      .def("clear_expert_cache_counts",
-           &ExpertDispatcher::ClearExpertCacheCounts);
+      .def("clear_expert_cache_counts",&ExpertDispatcher::ClearExpertCacheCounts)
+      .def("clear_expert_cache_priority",&ExpertDispatcher::ClearExpertCachePriority)
+      .def("set_expert_cache_priority", py::overload_cast<const std::string&>(&ExpertDispatcher::SetExpertCachePriority),
+          py::arg("priority_file") = ""  // 添加默认参数
+      );
 }

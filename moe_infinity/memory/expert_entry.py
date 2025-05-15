@@ -5,13 +5,14 @@ import numpy as np
 
 @dataclass
 class ExpertTraceEntry:
-    seq_id: str = None
-    matrix: np.ndarray = None
-    access: int = 0
-    num_new_tokens: int = 0
+    def __init__(self, seq_id: int, matrix: np.ndarray, access: int, num_new_tokens: int):
+        self.seq_id = seq_id  # 明确类型为 int
+        self.matrix = matrix
+        self.access = access
+        self.num_new_tokens = num_new_tokens
 
     def __hash__(self):
-        return hash(self.seq_id)
+        return hash(self.seq_id)  # 直接哈希整数
 
 
 @dataclass
