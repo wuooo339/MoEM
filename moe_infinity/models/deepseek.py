@@ -100,12 +100,12 @@ class DeepseekMoEBlock(nn.Module):
         # self.expert_prefetcher.prefetch_experts_list(self.layer_id, unique_expert_list)
         # ------------------实现专家预取部分Begin-----------------
         expert_index = topk_idx.reshape(batch_size, sequence_length, self.config.num_experts_per_tok)#此处暂时不用
-        print(f"prefill = {GLOBAL_CONFIG} ,layer = {self.layer_id},expert_id = {expert_index}")
+        # print(f"prefill = {GLOBAL_CONFIG} ,layer = {self.layer_id},expert_id = {expert_index}")
         if GLOBAL_CONFIG["prefill"] == 1 and self.layer_id > 25:
             GLOBAL_CONFIG["prefill"] = 0
             GLOBAL_CONFIG["decode"] = 1
             print("\033[94mGlobal dict updated\033[0m") 
-        print(f"\033[1;32mPre-execute: DeepSeek MOE Block in Layer{self.layer_id}\033[0m")
+        # print(f"\033[1;32mPre-execute: DeepSeek MOE Block in Layer{self.layer_id}\033[0m")
         if(GLOBAL_CONFIG["decode"] == 1):
             expert_index = topk_idx
             for i in range(batch_size):
@@ -135,7 +135,7 @@ class DeepseekMoEBlock(nn.Module):
         if self.config.n_shared_experts is not None:
             final_hidden_states = final_hidden_states + self.shared_experts(identity)
         # if DEBUG:
-        print(f"\033[1;94mExecute MOE Block End in Layer {self.layer_id}\033[0m")
+        # print(f"\033[1;94mExecute MOE Block End in Layer {self.layer_id}\033[0m")
         clear_prefetched_experts(self.layer_id)
         return final_hidden_states
 

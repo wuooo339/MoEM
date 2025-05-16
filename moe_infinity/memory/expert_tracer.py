@@ -88,13 +88,6 @@ class ExpertTracer:
             if self.trace[seq_id].num_new_tokens % 32 == 0:  # 保存矩阵记录
                 idx = self.seq_count % self.capacity
                 matrix = self.trace[seq_id].matrix
-                print("原始矩阵 (layer × expert):")
-                print(f"形状: {matrix.shape} (层数: {matrix.shape[0]}, 专家数: {matrix.shape[1]})")
-                # 逐层打印非零专家（避免打印全零层）
-                for l in range(matrix.shape[0]):
-                    non_zero_experts = np.where(matrix[l] != 0)[0]
-                    if len(non_zero_experts) > 0:
-                        print(f"  层 {l:2d} - 活跃专家: {non_zero_experts}")
                 self.trace_collection[idx].matrix = matrix
                 self.collection_access[idx] = 1
                 self.seq_count += 1

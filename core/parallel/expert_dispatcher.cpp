@@ -223,8 +223,7 @@ void ExpertDispatcher::Enqueue(CallArgs& args) {
   auto print_trace = [](const std::string& message) {
     auto now = std::chrono::system_clock::now();
     auto now_time = std::chrono::system_clock::to_time_t(now);
-    std::cout << "\033[1;36m[TRACE]\033[0m " 
-              << "\033[90m" << std::put_time(std::localtime(&now_time), "%T") << "\033[0m "
+    std::cout << "\033[90m" << std::put_time(std::localtime(&now_time), "%T") << "\033[0m "
               << message << std::endl;
   };
 
@@ -240,12 +239,13 @@ void ExpertDispatcher::Enqueue(CallArgs& args) {
   int expert_idx = args.expert_idx;
   auto expert_node = experts_[expert_idx][layer_idx];
 
-  // 1. 尝试加锁（带调试信息）
+  // // 1. 尝试加锁（带调试信息）
   std::ostringstream oss;
-  // oss << "Thread \033[1;33m" << std::this_thread::get_id() << "\033[0m "
-  //     << "attempting to lock node \033[1;35mLayer[" << layer_idx << "]-Expert[" << expert_idx << "]\033[0m";
+  // oss << "\033[1;33mEnqueue to lock \033[0m"  // 黄色前缀
+  //   << "\033[1;35mL[" << layer_idx << "]"  // 紫色层信息
+  //   << "\033[1;36m-E[" << expert_idx << "]\033[0m";  // 青色专家信息
   // print_trace(oss.str());
-  // oss.str("");
+  oss.str("");
 
   if (!expert_node->node->mutex.try_lock()) {
     oss << "Thread \033[1;33m" << std::this_thread::get_id() << "\033[0m "
@@ -641,8 +641,7 @@ void ExpertDispatcher::GPUExecFunc(int gpu_id) {
   }
 }
 
-void ExpertDispatcher::OutputFunc(ExecArgs args, torch::Tensor output,
-                                  int gpu_id) {
+void ExpertDispatcher::OutputFunc(ExecArgs args, torch::Tensor output, int gpu_id) {
   // c10::cuda::CUDAStream stream =
   // c10::cuda::getStreamFromExternal(out_streams_[gpu_id], gpu_id);
   // c10::cuda::CUDAStreamGuard guard(stream);

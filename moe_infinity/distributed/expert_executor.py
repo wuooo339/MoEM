@@ -54,39 +54,19 @@ class DistributedExpertExecutor:
             # 到达预取执行层
             for expert_id in expert_list:
                 gpu_id = expert_id % total_gpus
-                # 增加预取判断，如果已经被预取了，那么跳过该专家
                 if is_expert_prefetched(layer_id,expert_id):
-                    expected_wait_cnt-=1
                     hits.append(expert_id)
                     hit=1
                     print(f"\033[1;33m╔══════════════════════════╗\033[0m")
-                    print(f"\033[1;33m║ 🚀 预取命中: L{layer_id}-E{expert_id} ║\033[0m")
+                    print(f"\033[1;33m║ 🚀 预取命中: L{layer_id}-E{expert_id}    ║\033[0m")
                     print(f"\033[1;33m╚══════════════════════════╝\033[0m")
         self.expert_dispatcher.set_expected_queue(expected_wait_cnt)
         
         for expert_id in expert_list:
             gpu_id = expert_id % total_gpus
-            # 增加预取判断，如果已经被预取了，那么跳过该专家
-            if is_expert_prefetched(layer_id,expert_id) == False:
-                # 加入执行队列
-                self.expert_dispatcher.enqueue_expert(layer_id, expert_id, gpu_id, False)
-
-        # ------------------实现专家预取部分整合Begin-----------------
-        if hit == 0:
-            result = self.expert_dispatcher.wait_expert()
-            return result
-        else:
-            # 构建结果映射表，补全预取命中的专家结果，按原始专家顺序重组结果
-            raw_results = self.expert_dispatcher.wait_expert()
-            result_map = {idx: output for output, _, idx, _ in raw_results}
-            # for expert_id in expert_list:
-            #     if is_expert_prefetched(layer_id, expert_id):
-            #         result_map[expert_id] = get_prefetched_output(layer_id, expert_id)
-            #         # result_map[expert_id] = get_prefetched_output(layer_id, expert_id)
-            ordered_results = []
-
-            return raw_results
-        # ------------------实现专家预取部分整合End-----------------
+            self.expert_dispatcher.enqueue_expert(layer_id, expert_id, gpu_id, False)
+        result = self.expert_dispatcher.wait_expert()
+        return result
 
 
     def dispatch(self, hidden_states, router_mask, layer_id):

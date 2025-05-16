@@ -79,8 +79,7 @@ void ArcherPrefetchHandle::CleanUpResources() {
   has_cleaned_up_resources_ = true;
 }
 
-void ArcherPrefetchHandle::AcquireTensor(std::uint64_t& request_id,
-                                         torch::Tensor& buffer) {
+void ArcherPrefetchHandle::AcquireTensor(std::uint64_t& request_id, torch::Tensor& buffer) {
   auto tensor_id = kArcherTensorHandle->GetTensorId((void*)buffer.data_ptr());
   void* old_ptr = (void*)buffer.data_ptr();
   DLOG_TRACE("Acquire tensor ", tensor_id, old_ptr);
@@ -100,7 +99,7 @@ void ArcherPrefetchHandle::AcquireTensor(std::uint64_t& request_id,
     if (node->device.is_cuda()) {
       node_body->gpu_hit_cnt++;
     }
-
+    // std::cout << "\033[1;33m[LOCK AcquireTensor]\033[0m "<< tensor_id << std::endl;
     // always lock node, wait for previous prefetch task to finish
     node->mutex.lock();
     std::unique_lock<std::mutex> lock(node->mutex, std::adopt_lock);
@@ -162,6 +161,7 @@ void ArcherPrefetchHandle::ReleaseTensor(std::uint64_t& request_id,
     kTaskPool->StopExec(request_id,
                         node);  // FIXME: change api to add request id
     // always unlock node here since, exec queue do not unlock automatically
+    // std::cout << "\033[1;33m[LOCK ReleaseTensor]\033[0m "<< tensor_id << std::endl;
     node->mutex.unlock();
   }
 
@@ -191,12 +191,12 @@ void ArcherPrefetchHandle::PrefetchTensors(
   }
 }
 
-void ArcherPrefetchHandle::ReplaceCacheCandidates(
-    const std::vector<std::uint32_t>& tensor_ids) {
+void ArcherPrefetchHandle::ReplaceCacheCandidates(const std::vector<std::uint32_t>& tensor_ids) {
   std::vector<NodePtr> candidates;
   for (std::uint32_t tensor_id : tensor_ids) {
     auto node = kTopologyHandle->GetNodeFromTensorID(tensor_id);
-    node->mutex.try_lock();
+    // std::cout << "\033[1;33m[LOCK ReplaceCacheCandidates]\033[0m "<< tensor_id << std::endl;
+    // node->mutex.try_lock(); // 候选替换锁
     candidates.push_back(node);
   }
 

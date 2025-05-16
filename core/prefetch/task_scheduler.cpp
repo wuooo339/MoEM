@@ -14,7 +14,14 @@
 #include "task_thread.h"
 #include "utils/cuda_utils.h"
 #include "utils/logger.h"
+#include <iostream>
 
+#define COLOR_RED     "\033[31m"
+#define COLOR_GREEN   "\033[32m"
+#define COLOR_YELLOW  "\033[33m"
+#define COLOR_BLUE    "\033[34m"
+#define COLOR_RESET   "\033[0m"
+#define BOLD          "\033[1m"
 std::unique_ptr<ArcherTaskPool> kTaskPool = nullptr;
 
 ArcherTaskPool::ArcherTaskPool() {
@@ -81,7 +88,7 @@ void ArcherTaskPool::FetchExec(const std::uint64_t& request_id,
 
 void ArcherTaskPool::EnqueueTask(const TaskPtr& task) {
   DLOG_TRACE("EnqueueTask: {}", task->DebugString());
-  std::cout << "EnqueueTask: " << task->DebugString();
+  std::cout << BOLD << COLOR_YELLOW << "EnqueueTask: " << COLOR_RESET << COLOR_GREEN << task->DebugString() << COLOR_RESET << std::endl;
   {
     std::lock_guard<std::mutex> lock(unified_mutex_);
     for (std::size_t i = 1; i < NUM_PRIORITY; ++i) {
@@ -114,7 +121,6 @@ void ArcherTaskPool::EnqueueTask(const TaskPtr& task) {
   }
 
   DLOG_TRACE("EnqueueTask: finish {}", task->DebugString());
-  std::cout << " ### EnqueueTask End"<< std::endl;
 }
 
 void ArcherTaskPool::StartExec(const std::uint64_t& request_id,
@@ -126,7 +132,6 @@ void ArcherTaskPool::StartExec(const std::uint64_t& request_id,
   task->src_device = node->device;
   task->dst_device = node->default_device;
   task->request_id = request_id;
-  std::cout << "StartExec: " << task->DebugString();
   DLOG_TRACE("StartExec: {}", task->DebugString());
 
   node->visit_count += 1;
@@ -209,7 +214,6 @@ void ArcherTaskPool::StartExec(const std::uint64_t& request_id,
     std::lock_guard<std::mutex> lock(unified_mutex_);
     unified_queue_[task->priority].push_back(task);
   }
-  std::cout << " ### StartExec End"<< std::endl;
 }
 
 void ArcherTaskPool::StopExec(const std::uint64_t& request_id,
@@ -221,7 +225,7 @@ void ArcherTaskPool::StopExec(const std::uint64_t& request_id,
   task->src_device = node->device;
   task->dst_device = node->default_host;
   task->request_id = request_id;
-  std::cout << "StopExec: " << task->DebugString();
+
   DLOG_TRACE("StopExec: {}", task->DebugString());
   
   node->state = 0;
@@ -230,7 +234,7 @@ void ArcherTaskPool::StopExec(const std::uint64_t& request_id,
     std::lock_guard<std::mutex> lock(exec_mutex_);
     exec_queue_.erase(node->id);
   }
-  std::cout << " ### StopExec End"<< std::endl;
+
   return;
 }
 

@@ -1383,7 +1383,8 @@ class DeepseekV2DecoderLayer(nn.Module):
         residual = hidden_states
         hidden_states = self.post_attention_layernorm(hidden_states)
         # if DEBUG:
-        print(f"\n=== Layer {self.layer_idx if hasattr(self, 'layer_idx') else 'unknown'} MLP===")
+        title = f"Layer {getattr(self, 'layer_idx', 'unknown')} MLP"
+        print(f"\n\033[1;36m== {title} ==\n\033[0m")
         hidden_states = self.mlp(hidden_states)
         hidden_states = residual + hidden_states
 
